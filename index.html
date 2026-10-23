@@ -10,6 +10,10 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/css/tokens.css">
 <link rel="stylesheet" href="/css/site.css">
+<link rel="preload" as="image" href="/images/yard.webp">
+<link rel="preload" as="image" href="/images/truck.webp">
+<link rel="preload" as="image" href="/images/fork.webp">
+<link rel="preload" as="image" href="/images/pal.webp">
 </head>
 <body class="home">
 <header class="top"><div class="top-in">
@@ -18,7 +22,154 @@
   <a class="pill sign" href="/candidate/" aria-label="Sign in, 2 unread"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Sign in <span class="badge" aria-hidden="true">2</span></a>
   <a class="pill solid" href="/employer/">Employers</a>
 </div></header>
-<main></main>
+
+<section class="hero" id="hero" aria-label="Logistics jobs with steady hours">
+  <div class="stage" id="stage" aria-hidden="true">
+    <div class="pan yard"><div class="slide"><img src="/images/yard.webp" alt=""></div>
+    <i class="glow" style="left:511px;top:118px"></i>
+    <i class="glow" id="midGlow" style="left:930px;top:120px"></i>
+    <i class="glow" style="left:1342px;top:122px"></i>
+    <i class="reflect" style="left:511px;top:700px"></i>
+    <i class="reflect" id="midRef" style="left:930px;top:700px"></i>
+    <i class="reflect" style="left:1342px;top:700px"></i>
+    </div>
+    <div class="pan truck"><div class="slide"><img src="/images/truck.webp" alt=""></div></div>
+    <div class="pan fork"><div class="slide"><i class="fshadow"></i><img src="/images/fork.webp" alt=""></div></div>
+    <div class="pan pal"><div class="slide"><img src="/images/pal.webp" alt=""></div></div>
+  </div>
+  <div class="shade" aria-hidden="true"></div>
+
+  <div class="hero-copy">
+    <h1 id="headline" aria-live="polite"></h1>
+    <ul class="roles">
+      <li><a href="/jobs/?sector=haulage"><i></i>Drivers</a></li>
+      <li><a href="/jobs/?sector=warehouse"><i></i>Forklift operators</a></li>
+      <li><a href="/jobs/?sector=warehouse"><i></i>Warehouse staff</a></li>
+    </ul>
+  </div>
+</section>
+
+<main>
+<!-- ================= ABOUT ================= -->
+<section class="band intro" id="about">
+  <div class="wrap intro-grid">
+    <div>
+      <h2 class="words">We staff the yards, depots and lines that keep Ireland stocked.</h2>
+      <p class="lead reveal">A family-run agency that only works in logistics. We know what a reach truck ticket is, why a CPC date matters and which depots send you home on time.</p>
+    </div>
+    <ul class="sectors">
+      <li class="reveal"><a class="sector" href="/jobs/?sector=haulage"><span class="icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 8.5h15v13H3z"/><path d="M18 12.5h5.5l4.5 5v4H18z"/><circle cx="9" cy="23.5" r="2.6" fill="#DCFF1C"/><circle cx="23" cy="23.5" r="2.6" fill="#DCFF1C"/></svg></span><h3>Haulage</h3><span class="count">10 open jobs <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+      <li class="reveal"><a class="sector" href="/jobs/?sector=warehouse"><span class="icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 23V13h8l3 6v4"/><path d="M6 13V7.5h5l2.2 5.5"/><path d="M21 5v18h7"/><path d="M15 19.5h6"/><circle cx="8" cy="24" r="2.6" fill="#DCFF1C"/><circle cx="16" cy="24" r="2.6" fill="#DCFF1C"/></svg></span><h3>Warehouse</h3><span class="count">8 open jobs <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+      <li class="reveal"><a class="sector" href="/jobs/?sector=factory"><span class="icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 27V14l7 4v-4l7 4v-4l7 4V5h3v22z"/><path d="M9 22.5h3M15 22.5h3M21 22.5h2"/></svg></span><h3>Factory</h3><span class="count">6 open jobs <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= ROAD ================= -->
+<section class="road" id="road" aria-label="Choose your route">
+  <div class="road-pin">
+    <canvas id="roadCanvas" aria-hidden="true"></canvas>
+    <div class="road-choices">
+      <div class="wrap">
+        <a class="choice" href="/jobs/?sector=haulage"><span class="ttl"><span class="words">I have a licence</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><p>See driving jobs that match your licence and start this week.</p></a>
+        <a class="choice" href="/become-a-driver/"><span class="ttl"><span class="words">I want to become a driver</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><p>We can fund your training and get you on the road.</p></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= JOBS ================= -->
+<section class="band jobs" id="jobs">
+  <div class="wrap">
+    <div class="jobs-head">
+      <h2 class="words">Fresh this week</h2>
+      <a class="more" href="/jobs/"><span>See all 24 jobs</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <ul class="rows">
+      <li class="reveal"><a class="row" href="/job/?id=j1">
+        <div class="icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 8.5h15v13H3z"/><path d="M18 12.5h5.5l4.5 5v4H18z"/><circle cx="9" cy="23.5" r="2.6" fill="#DCFF1C"/><circle cx="23" cy="23.5" r="2.6" fill="#DCFF1C"/></svg></div>
+        <div class="role"><h3>CE driver, trunking</h3><p><b>O'Rourke Logistics</b> · we've placed 24 people here</p></div>
+        <div class="cell"><small>Where</small>Ballycoolin, Dublin 15</div>
+        <div class="cell"><small>Shift</small>Days, home every night</div>
+        <div class="cell pay"><small>Pay</small>€22.50<em> /hr</em></div>
+        <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a></li>
+      <li class="reveal"><a class="row" href="/job/?id=j9">
+        <div class="icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 23V13h8l3 6v4"/><path d="M6 13V7.5h5l2.2 5.5"/><path d="M21 5v18h7"/><path d="M15 19.5h6"/><circle cx="8" cy="24" r="2.6" fill="#DCFF1C"/><circle cx="16" cy="24" r="2.6" fill="#DCFF1C"/></svg></div>
+        <div class="role"><h3>Counterbalance forklift operator</h3><p><b>Confidential client</b> · chilled distribution centre</p></div>
+        <div class="cell"><small>Where</small>Naas, Co. Kildare</div>
+        <div class="cell"><small>Shift</small>Nights, 4 on 4 off</div>
+        <div class="cell pay"><small>Pay</small>€17.80<em> /hr</em></div>
+        <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a></li>
+      <li class="reveal"><a class="row" href="/job/?id=j2">
+        <div class="icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 9.5h12v12H4z"/><path d="M16 13.5h5l4 4.5v3.5h-9z"/><circle cx="9" cy="23.5" r="2.6" fill="#DCFF1C"/><circle cx="21" cy="23.5" r="2.6" fill="#DCFF1C"/></svg></div>
+        <div class="role"><h3>Category C rigid driver, multi-drop</h3><p><b>Kearney Distribution</b> · we've placed 11 people here</p></div>
+        <div class="cell"><small>Where</small>Athlone, Co. Westmeath</div>
+        <div class="cell"><small>Shift</small>Early starts, Mon to Fri</div>
+        <div class="cell pay"><small>Pay</small>€19.40<em> /hr</em></div>
+        <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a></li>
+      <li class="reveal"><a class="row" href="/job/?id=j16">
+        <div class="icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 27V14l7 4v-4l7 4v-4l7 4V5h3v22z"/><path d="M9 22.5h3M15 22.5h3M21 22.5h2"/></svg></div>
+        <div class="role"><h3>Production operative, packing line</h3><p><b>Boyne Valley Foods</b> · we've placed 37 people here</p></div>
+        <div class="cell"><small>Where</small>Drogheda, Co. Louth</div>
+        <div class="cell"><small>Shift</small>Days or lates, weekly rota</div>
+        <div class="cell pay"><small>Pay</small>€15.20<em> /hr</em></div>
+        <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= CHECKED DRIVER ================= -->
+<section class="band checked" id="checked" data-seq>
+  <div class="wrap checked-grid">
+    <div>
+      <h2 class="words">Every driver arrives already checked.</h2>
+      <p class="lead reveal">With the driver's consent, we check their licence, CPC, tachograph card and penalty points before we put them forward. Then we keep an eye on every expiry date so nobody gets caught out.</p>
+      <a class="more reveal" href="/hire-staff/">Hire staff with Tierney <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="idcard" id="card">
+      <div class="id-head"><span class="logo">T<i>ie</i>rney</span><span>DRIVER CHECK · REF TR-2481</span></div>
+      <div class="id-body">
+        <div class="photo"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></div>
+        <div class="id-who">
+          <h3>CE driver, 11 years on the road</h3>
+          <p>Checked 21 Oct 2026 · Available from Monday</p>
+          <dl class="fields">
+            <dt>Right to work</dt><dd><span class="mark">Confirmed</span></dd>
+            <dt>Category CE licence</dt><dd><span class="mark">Valid to 2031</span></dd>
+            <dt>Driver CPC</dt><dd><span class="mark">Valid to 5 Dec 2026</span></dd>
+            <dt>Tachograph card</dt><dd><span class="mark">Valid to 2028</span></dd>
+            <dt>Penalty points</dt><dd><span class="mark">None</span></dd>
+          </dl>
+        </div>
+      </div>
+      <div class="id-foot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg><span>CPC expires in <b>43 days</b>. Reminder sent.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CLOSING ================= -->
+<section class="band closing" id="contact">
+  <div class="wrap closing-grid">
+    <blockquote>
+      <p>We rang on a Thursday needing four CE drivers. All four were on the road by Monday with their paperwork already done.</p>
+      <footer><b>Operations manager</b> · O'Rourke Logistics, Dublin 15</footer>
+    </blockquote>
+    <div class="contact">
+      <div class="line"><small>Call the office</small><span>01 000 6622</span></div>
+      <div class="line"><small>Email</small><span>hello@tierney.example</span></div>
+      <div class="btns">
+        <a class="btn" href="/jobs/">Find a job</a>
+        <a class="btn dark" href="/hire-staff/">Hire staff</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
 <footer class="foot"><div class="wrap">
   <div class="foot-grid">
     <div><div class="logo">T<i>ie</i>rney</div><p class="blurb">Logistics recruitment for haulage, warehouse and factory work across Ireland.</p></div>
@@ -28,6 +179,6 @@
   </div>
   <div class="foot-base"><span>© 2026 Tierney Recruitment Ltd · Dublin 15</span><span>Concept site by Ufuk Karakuş — not a real business · Designed by Ufuk Karakuş</span></div>
 </div></footer>
-<script type="module" src="/js/site.js"></script>
+<script type="module" src="/js/home.js"></script>
 </body>
 </html>
