@@ -17,7 +17,7 @@ function bindCv() {
 
 if (cvOnly) {
   app.innerHTML = `<div class="page-head"><h1 class="words">Send us your CV</h1><p>No CV is needed to apply for a job. If you'd like us to keep yours on file for roles that aren't advertised yet, add it here.</p></div>
-    <div class="done">${cvBox('Your CV')}<div class="two"><div class="field"><label for="n">Name</label><input class="input" id="n" autocomplete="name"></div><div class="field"><label for="p">Phone</label><input class="input" id="p" type="tel" autocomplete="tel"></div></div><button type="button" class="btn" id="sendCv" style="justify-self:start">Send</button></div>`;
+    <div class="sent">${cvBox('Your CV')}<div class="two"><div class="field"><label for="n">Name</label><input class="input" id="n" autocomplete="name"></div><div class="field"><label for="p">Phone</label><input class="input" id="p" type="tel" autocomplete="tel"></div></div><button type="button" class="btn" id="sendCv" style="justify-self:start">Send</button></div>`;
   words(app); bindCv();
   document.getElementById('sendCv').onclick = () => modal('CV received', 'In the live site your CV goes to a consultant, who calls you within one working day. This is a concept site, so nothing was sent.');
 } else {
@@ -48,7 +48,7 @@ if (cvOnly) {
     if (answers.rtw === 'No') { msg.textContent = 'We can only place people with the right to work in Ireland.'; return; }
     if (!answers.rtw || !document.getElementById('n').value.trim() || !document.getElementById('p').value.trim()) { msg.textContent = 'Please answer the right-to-work question and add your name and phone number.'; return; }
     app.innerHTML = `<div class="page-head"><h1 class="words">You're in. We'll call you.</h1></div>
-      <div class="done"><p style="font-size:19px">Your application for <b>${esc(j.title)}</b> is with your consultant. Expect a call within one working day, usually the same afternoon.</p>
+      <div class="sent"><p style="font-size:19px">Your application for <b>${esc(j.title)}</b> is with your consultant. Expect a call within one working day, usually the same afternoon.</p>
       ${cvBox('Have a CV? Add it here.')}
       <a class="link" href="/candidate/">Track your application ${ARROW}</a></div>`;
     words(app); bindCv();

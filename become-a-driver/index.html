@@ -18,7 +18,31 @@
   <a class="pill sign" href="/candidate/" aria-label="Sign in, 2 unread"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Sign in <span class="badge" aria-hidden="true">2</span></a>
   <a class="pill solid" href="/employer/">Employers</a>
 </div></header>
-<main></main>
+<main class="wrap">
+  <div class="page-head"><h1 class="words">Become a driver</h1><p class="reveal">Tick what you already have. We'll show what's left, how long it takes and roughly what it costs.</p></div>
+  <div class="pick">
+    <div class="card"><span class="label" id="lblTarget">Which licence are you aiming for?</span>
+      <div class="seg" id="target" role="group" aria-labelledby="lblTarget"><button type="button" class="chip" data-v="C" aria-pressed="true">Category C, rigid truck</button><button type="button" class="chip" data-v="CE" aria-pressed="false">Category CE, articulated truck</button></div></div>
+    <div class="card"><span class="label" id="lblHave">What do you already have?</span><div class="seg" id="have" role="group" aria-labelledby="lblHave"></div></div>
+  </div>
+  <div class="sum" aria-live="polite">
+    <div><small>Steps left</small><b id="left"></b></div>
+    <div><small>Time, roughly</small><b id="time"></b></div>
+    <div><small>Cost, roughly</small><b id="cost"></b></div>
+  </div>
+  <ol class="steps" id="steps" aria-label="Steps"></ol>
+  <p class="small">Costs are typical estimates and change over time. Check current RSA fees before you book.</p>
+
+  <section class="fund" aria-labelledby="fundH">
+    <div><h2 id="fundH">We can fund your training.</h2><p class="muted">If you'd like to drive for one of our clients, we can pay for your lessons, tests and Driver CPC up front.</p><button type="button" class="btn" id="fund">Talk to us about funding</button></div>
+    <ul>
+      <li>No interest and nothing to pay while you train.</li>
+      <li>Work through Tierney once you qualify.</li>
+      <li>If you leave within 12 months, you repay only the share for the months left. Leave after 9 months and you repay 3 twelfths.</li>
+      <li>No tie-in after 12 months. The licence is yours.</li>
+    </ul>
+  </section>
+</main>
 <footer class="foot"><div class="wrap">
   <div class="foot-grid">
     <div><div class="logo">T<i>ie</i>rney</div><p class="blurb">Logistics recruitment for haulage, warehouse and factory work across Ireland.</p></div>
@@ -28,6 +52,6 @@
   </div>
   <div class="foot-base"><span>© 2026 Tierney Recruitment Ltd · Dublin 15</span><span>Concept site by Ufuk Karakuş — not a real business · Designed by Ufuk Karakuş</span></div>
 </div></footer>
-<script type="module" src="/js/site.js"></script>
+<script type="module" src="/js/driver.js"></script>
 </body>
 </html>
