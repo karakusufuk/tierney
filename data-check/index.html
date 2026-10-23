@@ -18,7 +18,26 @@
   <a class="pill sign" href="/candidate/" aria-label="Sign in, 2 unread"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Sign in <span class="badge" aria-hidden="true">2</span></a>
   <a class="pill solid" href="/employer/">Employers</a>
 </div></header>
-<main></main>
+<main class="wrap check">
+  <div class="page-head"><h1 class="words">Data check</h1><p class="reveal">Hidden page. Every job, every document and 30 random combinations of documents and filters, with the number of “You can apply” and “One cert away” results. Neither group may be empty at the same time, and “One cert away” is never empty.</p></div>
+
+  <h2>Verdict</h2>
+  <p id="verdict"></p>
+
+  <h2>Sector counts</h2>
+  <table><thead><tr><th>Sector</th><th>Open jobs</th></tr></thead><tbody id="sectors"></tbody></table>
+
+  <h2>Results per document and per combination</h2>
+  <table><thead><tr><th>Case</th><th>Documents held</th><th>Filters</th><th>You can apply</th><th>One cert away</th><th>Note</th></tr></thead><tbody id="combos"></tbody></table>
+
+  <h2>Licence hierarchy</h2>
+  <table><thead><tr><th>Holding</th><th>Also covers</th></tr></thead><tbody id="implies"></tbody></table>
+  <p id="hierNote"></p>
+  <table><thead><tr><th>Job</th><th>Title</th><th>Needs</th><th>With Category CE, Driver CPC and tachograph card</th></tr></thead><tbody id="hier"></tbody></table>
+
+  <h2>All <span id="n"></span> jobs</h2>
+  <table><thead><tr><th>Id</th><th>Title</th><th>Sector</th><th>Shift type</th><th>County</th><th>Documents</th><th>Home every night</th></tr></thead><tbody id="jobs"></tbody></table>
+</main>
 <footer class="foot"><div class="wrap">
   <div class="foot-grid">
     <div><div class="logo">T<i>ie</i>rney</div><p class="blurb">Logistics recruitment for haulage, warehouse and factory work across Ireland.</p></div>
@@ -28,6 +47,6 @@
   </div>
   <div class="foot-base"><span>© 2026 Tierney Recruitment Ltd · Dublin 15</span><span>Concept site by Ufuk Karakuş — not a real business · Designed by Ufuk Karakuş</span></div>
 </div></footer>
-<script type="module" src="/js/site.js"></script>
+<script type="module" src="/js/data-check.js"></script>
 </body>
 </html>

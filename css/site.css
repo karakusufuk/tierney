@@ -176,6 +176,18 @@ p{margin:0}
 .prose p{margin-top:14px;font-size:18px}
 .prose ul{margin:14px 0 0;padding-left:22px;font-size:18px;display:grid;gap:8px}
 
+/* ---------- data check (hidden) ---------- */
+.check h2{font-size:26px;margin-top:40px}
+.check table{width:100%;border-collapse:collapse;margin-top:14px;background:var(--white);border-radius:16px;overflow:hidden;font-size:15px}
+.check th,.check td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--navy-12);vertical-align:top}
+.check th{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--navy-70);font-weight:500}
+.check tr:last-child td{border-bottom:0}
+.check tr.bad td{background:#FFE5E5}
+.check #verdict{margin-top:12px;font-weight:600}
+.check #verdict.good{color:var(--navy)}
+.check #verdict.bad{color:#9B1C1C}
+.check #hierNote{margin-top:14px;color:var(--navy-70)}
+
 /* =====================================================================
    Homepage
    ===================================================================== */
