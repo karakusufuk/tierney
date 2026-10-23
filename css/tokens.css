@@ -1,0 +1,16 @@
+/* Tierney design tokens. One navy, one yellow, one control height. */
+:root{
+  --reflector:#DCFF1C;
+  --navy:#13234A;
+  --navy-70:rgba(19,35,74,.7);
+  --navy-50:rgba(19,35,74,.5);
+  --navy-12:rgba(19,35,74,.12);
+  --navy-06:rgba(19,35,74,.06);
+  --paper:#F3F5F8;
+  --white:#FFFFFF;
+  --hover:#E8ECF2;
+  --ctl:52px;
+  --font:"Rubik",ui-rounded,"SF Pro Rounded","Segoe UI",system-ui,sans-serif;
+  --unit:20vh;
+  color-scheme:light;
+}
