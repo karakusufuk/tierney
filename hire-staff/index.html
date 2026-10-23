@@ -18,7 +18,24 @@
   <a class="pill sign" href="/candidate/" aria-label="Sign in, 2 unread"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Sign in <span class="badge" aria-hidden="true">2</span></a>
   <a class="pill solid" href="/employer/">Employers</a>
 </div></header>
-<main></main>
+<main class="wrap">
+  <div class="page-head head2">
+    <div><h1 class="words">Hire staff</h1><p class="reveal">Drivers and warehouse staff we've already checked, ready this week. Every licence, card and expiry date verified with the candidate's consent.</p></div>
+    <div class="seg" id="f" role="group" aria-label="Sector"></div>
+  </div>
+  <div class="pool" id="pool" aria-live="polite"></div>
+  <p class="privacy">Names, photos and contact details stay private until you work with us. That protects the candidates and keeps it fair for everyone.</p>
+  <section class="cta" id="talk" aria-labelledby="talkH">
+    <div><h2 id="talkH">Work with us</h2><p>Tell us who you need. A consultant calls you back within the hour during office hours.</p></div>
+    <form id="tf" novalidate>
+      <input class="input" placeholder="Company" aria-label="Company" id="co" autocomplete="organization">
+      <input class="input" placeholder="Your name" aria-label="Your name" id="nm" autocomplete="name">
+      <input class="input" placeholder="Phone" aria-label="Phone" type="tel" id="ph" autocomplete="tel">
+      <input class="input" placeholder="Who do you need? e.g. 4 CE drivers from Monday" aria-label="Who you need" id="nd">
+      <button class="btn" type="submit" style="justify-self:start">Request a call</button>
+    </form>
+  </section>
+</main>
 <footer class="foot"><div class="wrap">
   <div class="foot-grid">
     <div><div class="logo">T<i>ie</i>rney</div><p class="blurb">Logistics recruitment for haulage, warehouse and factory work across Ireland.</p></div>
@@ -28,6 +45,6 @@
   </div>
   <div class="foot-base"><span>© 2026 Tierney Recruitment Ltd · Dublin 15</span><span>Concept site by Ufuk Karakuş — not a real business · Designed by Ufuk Karakuş</span></div>
 </div></footer>
-<script type="module" src="/js/site.js"></script>
+<script type="module" src="/js/hire.js"></script>
 </body>
 </html>

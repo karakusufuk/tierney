@@ -318,6 +318,60 @@ p{margin:0}
 .doc .warn{background:var(--reflector);border-radius:6px;padding:0 6px}
 @media (max-width:900px){.dash{grid-template-columns:1fr}.one{position:static}.stages li{font-size:12px}}
 
+/* ---------- Hire staff ---------- */
+.head2{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.pool{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:22px}
+.cand{background:var(--white);border-radius:22px;overflow:hidden;display:flex;flex-direction:column}
+.cand-h{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:var(--navy);color:var(--white);font-size:13px;letter-spacing:.06em}
+.cand-b{padding:18px 20px 20px;display:grid;gap:12px}
+.cand h3{font-size:20px}
+.cand p{color:var(--navy-70);font-size:15px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{background:var(--reflector);border-radius:6px;padding:1px 8px;font-size:14px;font-weight:600}
+.avail{font-size:15px;font-weight:600}
+.cta{margin-top:56px;background:var(--navy);color:var(--white);border-radius:28px;padding:44px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center}
+.cta h2{font-size:clamp(34px,3.4vw,50px);line-height:1.08}
+.cta p{opacity:.82;margin-top:12px;font-size:18px}
+.cta form{display:grid;gap:12px}
+.cta .input{background:rgba(255,255,255,.1);color:var(--white)}
+.cta .input::placeholder{color:rgba(255,255,255,.6)}
+.cta .input:focus{outline-color:var(--reflector)}
+.privacy{font-size:15px;color:var(--navy-70);margin-top:14px}
+@media (max-width:1000px){.pool{grid-template-columns:1fr 1fr}.cta{grid-template-columns:1fr}}
+@media (max-width:640px){.pool{grid-template-columns:1fr}}
+
+/* ---------- Employer panel ---------- */
+.alert{display:flex;align-items:center;gap:16px;background:var(--navy);color:var(--white);border-radius:20px;padding:18px 22px;font-size:17px;margin-bottom:28px}
+.alert b{color:var(--reflector);font-weight:600}
+.alert svg{width:24px;height:24px;flex:none;fill:none;stroke:var(--reflector);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.alert .see{margin-left:auto;font-weight:600;white-space:nowrap;background:none;border:0;padding:0;color:inherit;cursor:pointer}
+.top2{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.new{display:inline-flex;align-items:center;gap:14px;height:68px;padding:0 32px 0 18px;border-radius:999px;border:0;background:var(--reflector);color:var(--navy);font-size:20px;font-weight:700;cursor:pointer}
+.new span{width:40px;height:40px;border-radius:50%;background:var(--navy);color:var(--reflector);display:grid;place-items:center;font-size:30px;font-weight:600;line-height:1}
+.panel{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:40px;align-items:start;margin-top:12px}
+h2.sub{font-size:28px;margin:8px 0 14px}
+.tbl{background:var(--white);border-radius:24px;padding:8px 24px}
+.ap{display:grid;grid-template-columns:110px minmax(0,1.6fr) minmax(0,1.3fr) 170px;gap:18px;align-items:center;padding:16px 0}
+.ap+.ap{border-top:1px solid var(--navy-12)}
+.ap .ref{font-size:14px;letter-spacing:.06em;color:var(--navy-70);font-variant-numeric:tabular-nums}
+.ap b{font-weight:600}
+.ap .for{font-size:15px}
+.apdocs{display:flex;flex-wrap:wrap;gap:6px}
+.apdocs span{background:var(--reflector);border-radius:6px;padding:0 7px;font-size:13px;font-weight:600}
+.stg{justify-self:end;font-size:14px;font-weight:600;background:var(--paper);border-radius:999px;padding:6px 12px;white-space:nowrap}
+.stg.hot{background:var(--navy);color:var(--white)}
+.jobs2{display:grid;gap:10px}
+.jobs2 a{display:flex;justify-content:space-between;align-items:center;background:var(--white);border-radius:18px;padding:16px 20px;font-weight:500}
+.jobs2 a span{font-weight:600;font-variant-numeric:tabular-nums}
+.consult{background:var(--navy);color:var(--white);border-radius:24px;padding:26px;display:grid;gap:12px;position:sticky;top:24px}
+.consult .who{display:flex;align-items:center;gap:14px}
+.consult .av{width:56px;height:56px;border-radius:50%;background:var(--reflector);color:var(--navy);display:grid;place-items:center;font-weight:700;font-size:20px}
+.consult h3{font-size:20px}
+.consult p{opacity:.8;font-size:15px}
+.consult .line{font-size:20px;font-weight:600;font-variant-numeric:tabular-nums;user-select:all}
+.consult .mail{user-select:all}
+@media (max-width:1000px){.panel{grid-template-columns:1fr}.consult{position:static}.ap{grid-template-columns:1fr 1fr}.stg{justify-self:start}}
+
 /* ---------- privacy (plain text) ---------- */
 .prose{max-width:68ch}
 .prose h2{font-size:26px;margin-top:40px}
