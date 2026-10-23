@@ -255,7 +255,7 @@ p{margin:0}
 .sector .icon{width:72px;height:72px}
 .sector .icon svg{width:36px;height:36px}
 .sector h3{font-size:clamp(40px,4.4vw,64px);font-weight:600;letter-spacing:-.02em;line-height:1}
-.sector .count{margin-left:auto;display:inline-flex;align-items:center;gap:10px;font-size:17px;font-weight:600;opacity:0;transform:translateX(-8px);transition:opacity .3s ease,transform .3s ease;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sector .count{margin-left:auto;display:inline-flex;align-items:center;gap:10px;font-size:17px;font-weight:600;opacity:0;transform:translateX(-8px);transition:opacity .3s ease,transform .3s ease;font-variant-numeric:tabular-nums}
 .sector .count svg{width:20px;height:20px}
 .sector:hover .count,.sector:focus-visible .count{opacity:1;transform:none}
 .more{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:17px;margin-top:6px}
@@ -294,7 +294,7 @@ p{margin:0}
 .idcard.in{opacity:1;transform:none}
 .id-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 24px;background:var(--navy);color:var(--white)}
 .id-head .logo{font-size:22px}
-.id-head span:last-child{font-size:13px;letter-spacing:.06em;opacity:.8;font-variant-numeric:tabular-nums}
+.id-head span{font-size:13px;letter-spacing:.06em;opacity:.8;font-variant-numeric:tabular-nums}
 .id-body{display:grid;grid-template-columns:104px minmax(0,1fr);gap:22px;padding:20px 24px 16px}
 .photo{aspect-ratio:3/4;border-radius:12px;background:var(--paper);display:grid;place-items:center}
 .photo svg{width:52px;height:52px;fill:none;stroke:rgba(19,35,74,.35);stroke-width:1.8;stroke-linecap:round}
