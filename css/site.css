@@ -151,7 +151,7 @@ p{margin:0}
 .close{position:absolute;top:24px;right:24px;width:44px;height:44px;border-radius:50%;border:0;background:var(--white);display:grid;place-items:center;cursor:pointer}
 .close svg{width:18px;height:18px}
 .toggle{height:var(--ctl);display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--white);border-radius:16px;padding:0 18px;font-weight:500;cursor:pointer}
-.toggle input{width:20px;height:20px;margin:0;accent-color:var(--navy)}
+.toggle input{width:20px;height:20px;accent-color:var(--navy)}
 
 /* ---------- modal + toast ---------- */
 .modal-scrim{position:fixed;inset:0;z-index:60;background:rgba(19,35,74,.45);display:grid;place-items:center;padding:16px}
@@ -171,6 +171,31 @@ p{margin:0}
 .seg{display:flex;flex-wrap:wrap;gap:8px}
 .seg .chip{padding:0 20px;font-size:16px;background:var(--paper)}
 .seg .chip[aria-pressed="true"]{background:var(--navy);color:var(--white)}
+
+/* ---------- Find a job ---------- */
+.jbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+.jbar .count{font-size:18px;font-weight:600;font-variant-numeric:tabular-nums}
+.jbar .right{margin-left:auto}
+.fbtn{gap:10px}
+.fbtn svg{width:20px;height:20px}
+.fbtn .badge{margin-left:2px}
+.active{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;min-height:4px}
+.active .chip{background:var(--navy);color:var(--white)}
+.active .chip:hover{background:var(--navy);opacity:.92}
+.group-title{font-size:15px;font-weight:600;margin:22px 0 4px;display:flex;align-items:center;gap:10px}
+.note{background:var(--white);border-radius:16px;padding:14px 18px;margin-bottom:10px;font-size:16px}
+.addrow{display:grid;grid-template-columns:minmax(0,1fr) var(--ctl);gap:8px}
+.plus{height:var(--ctl);width:var(--ctl);border-radius:16px;border:0;background:var(--navy);color:var(--white);font-size:28px;line-height:1;cursor:pointer}
+.held{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:6px}
+.held li{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--white);border-radius:14px;padding:10px 10px 10px 16px;font-weight:500}
+.held button{width:32px;height:32px;border-radius:50%;border:0;background:var(--paper);display:grid;place-items:center;cursor:pointer;flex:none}
+.held button svg{width:14px;height:14px}
+.other{margin-top:12px;display:grid;gap:8px}
+.other .sub{font-size:14px;font-weight:600;color:var(--navy-70)}
+.other .input{background:var(--white)}
+.suggest{font-size:15px}
+.suggest:empty{display:none}
+.suggest button{border:0;background:none;padding:0;font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 
 /* ---------- privacy (plain text) ---------- */
 .prose{max-width:68ch}

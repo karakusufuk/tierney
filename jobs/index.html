@@ -18,7 +18,40 @@
   <a class="pill sign" href="/candidate/" aria-label="Sign in, 2 unread"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Sign in <span class="badge" aria-hidden="true">2</span></a>
   <a class="pill solid" href="/employer/">Employers</a>
 </div></header>
-<main></main>
+<main class="wrap">
+  <div class="page-head"><h1 class="words">Find a job</h1><p class="reveal">Driving, warehouse and factory work across Leinster. Tell us what you hold and we'll show what you can apply for today.</p></div>
+  <div class="jbar">
+    <button type="button" class="btn dark fbtn" id="openFilters" aria-haspopup="dialog" aria-controls="filters"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/></svg>Filters<span class="badge" id="fcount" hidden></span></button>
+    <span class="count" id="count" aria-live="polite"></span>
+    <button type="button" class="btn right" id="openForYou" aria-haspopup="dialog" aria-controls="foryou">For you</button>
+  </div>
+  <div class="active" id="active" aria-label="Active choices"></div>
+  <section id="results" aria-live="polite" aria-label="Jobs"></section>
+</main>
+
+<div class="drawer-scrim" id="scrim"></div>
+<aside class="drawer left" role="dialog" aria-modal="true" aria-labelledby="filtersTitle" id="filters">
+  <button type="button" class="close" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <h2 id="filtersTitle">Filters</h2>
+  <div><span class="label" id="lblSector">Sector</span><div id="ddSector"></div></div>
+  <div><span class="label" id="lblShift">Shift</span><div id="ddShift"></div></div>
+  <div><span class="label" id="lblCounty">County</span><div id="ddCounty"></div></div>
+  <label class="toggle"><span>Home every night</span><input type="checkbox" id="fHome"></label>
+  <div class="actions"><button type="button" class="btn dark" data-close>Show jobs</button></div>
+</aside>
+<aside class="drawer right" role="dialog" aria-modal="true" aria-labelledby="foryouTitle" id="foryou">
+  <button type="button" class="close" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <h2 id="foryouTitle">For you</h2>
+  <div><span class="label" id="lblHold">What do you hold?</span>
+    <div class="addrow"><div id="ddHold"></div><button type="button" class="plus" id="addHold" aria-label="Add">+</button></div>
+    <ul class="held" id="held" aria-label="Documents you hold"></ul></div>
+  <div><span class="label" id="lblDone">What have you done?</span><div id="ddDone"></div></div>
+  <div><span class="label" id="lblNext">What's next?</span><div id="ddNext"></div>
+    <div class="other" id="otherBox" hidden><label class="sub" for="other">Something else</label><input class="input" id="other" placeholder="e.g. tanker driver, planner" autocomplete="off"><div class="suggest" id="suggest" aria-live="polite"></div></div>
+  </div>
+  <div class="actions"><button type="button" class="btn dark" id="showMine">Show my jobs</button></div>
+</aside>
+
 <footer class="foot"><div class="wrap">
   <div class="foot-grid">
     <div><div class="logo">T<i>ie</i>rney</div><p class="blurb">Logistics recruitment for haulage, warehouse and factory work across Ireland.</p></div>
@@ -28,6 +61,6 @@
   </div>
   <div class="foot-base"><span>© 2026 Tierney Recruitment Ltd · Dublin 15</span><span>Concept site by Ufuk Karakuş — not a real business · Designed by Ufuk Karakuş</span></div>
 </div></footer>
-<script type="module" src="/js/site.js"></script>
+<script type="module" src="/js/jobs.js"></script>
 </body>
 </html>
