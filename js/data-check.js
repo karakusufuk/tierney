@@ -37,7 +37,7 @@ for (let i = 1; i <= 30; i++) {
   add('random ' + i, have, st);
 }
 $('combos').innerHTML = rows.join('');
-$('verdict').textContent = bad ? `${bad} combination(s) FAIL: an empty group.` : `All ${rows.length} combinations pass: "You can apply" and "One cert away" are never both empty, and "One cert away" is never empty.`;
+$('verdict').textContent = bad ? `${bad} combination(s) FAIL: an empty group.` : `All ${rows.length} combinations pass: “You can apply” and “One cert away” are never both empty, and “One cert away” is never empty.`;
 $('verdict').className = bad ? 'bad' : 'good';
 
 // 4. licence hierarchy
