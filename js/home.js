@@ -5,9 +5,20 @@ const $ = id => document.getElementById(id);
 
 /* ---------- hero ---------- */
 const hero = $('hero'), stage = $('stage'), hl = $('headline');
+// Phones and portrait tablets: a full-screen cover crop of the wide yard loses the cab and the forklift, so there the
+// whole scene is framed (yard x 395–1435, cab to forklift, around the middle lamp) above a navy band with the words, and nothing moves.
+const still = matchMedia('(max-width:1100px) and (max-aspect-ratio:6/5)');
+const narrow = matchMedia('(max-width:1100px)');
 // a 1536 × 1024 scene scaled to cover the screen × 1.065 and centred, so the pan never shows an edge
 function fit() {
   const w = hero.clientWidth, h = hero.clientHeight;
+  if (still.matches) {
+    const k = w / 1040, mh = Math.round(Math.min(1024 * k, Math.max(innerHeight * .8, 320)));
+    const ty = Math.max(mh - 1024 * k, Math.min(0, mh * .88 - 760 * k));
+    hero.style.setProperty('--mh', mh + 'px');
+    stage.style.transform = `translate(${w / 2 - 915 * k}px,${ty}px) scale(${k})`;
+    return;
+  }
   const s = Math.max(w / 1536, h / 1024) * 1.065;
   stage.style.transform = `translate(${(w - 1536 * s) / 2}px,${(h - 1024 * s) / 2}px) scale(${s})`;
 }
@@ -38,12 +49,21 @@ function start() {
   write(LINES[0], reduce ? 0 : 3000);
   if (!reduce) later(cycle, 3000 + 20000);
 }
+// the still composition: every line at once (the first as the headline, the other two beneath it), lamps on, no pan
+const sub = document.createElement('p'); sub.className = 'hero-sub'; sub.textContent = LINES.slice(1).join(' ');
+function hold() {
+  timers.forEach(clearTimeout); timers = []; line = 0; lamp(false); tx = 0;
+  hero.classList.remove('play'); hl.classList.remove('leaving');
+  hl.innerHTML = LINES[0].split(' ').map(w => `<span class="in">${w}</span>`).join(' ');
+  hl.after(sub);
+}
+function mode() { if (still.matches) hold(); else { sub.remove(); start(); } fit(); }
 
 // mouse parallax, horizontal only: the lorry drifts least and slowest, the forklift more, the pallets most and quickest.
 // The pallets never move right of the forklift, so the forklift's cut rear never shows.
 const P = { truck: stage.querySelector('.pan.truck'), fork: stage.querySelector('.pan.fork'), pal: stage.querySelector('.pan.pal') };
 let tx = 0; const c = { truck: 0, fork: 0, pal: 0 };
-hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width * 2 - 1; });
+hero.addEventListener('pointermove', e => { if (still.matches) return; const r = hero.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width * 2 - 1; });
 hero.addEventListener('pointerleave', () => { tx = 0; });
 if (!reduce) (function tick() {
   c.truck += (tx - c.truck) * .025; c.fork += (tx - c.fork) * .05; c.pal += (tx - c.pal) * .09;
@@ -51,7 +71,8 @@ if (!reduce) (function tick() {
   P.truck.style.translate = `${t.toFixed(2)}px 0px`; P.fork.style.translate = `${f.toFixed(2)}px 0px`; P.pal.style.translate = `${p.toFixed(2)}px 0px`;
   requestAnimationFrame(tick);
 })();
-start();
+mode();
+still.addEventListener('change', mode);
 
 /* ---------- word-by-word headings, soft reveals (sections start when they enter) ---------- */
 words(document, .14, false);
@@ -77,7 +98,7 @@ watch([chk], s => {
   setTimeout(() => $('card').classList.add('in'), reduce ? 0 : base);
   s.querySelectorAll('.reveal').forEach((r, i) => setTimeout(() => r.classList.add('in'), reduce ? 0 : base + 700 + i * 250));
   s.querySelectorAll('.mark').forEach((m, i) => setTimeout(() => m.classList.add('on'), reduce ? 0 : base + 1500 + i * 450));
-}, .6);
+}, narrow.matches ? .2 : .6); // stacked on a phone the section is taller than the screen, so 60 % may never be in view at once
 
 /* ---------- road: snaps into view, then plays on its own ---------- */
 const road = $('road'), cv = $('roadCanvas'), ctx = cv.getContext('2d');
@@ -204,11 +225,12 @@ addEventListener('scroll', () => {
     else if (arrived) scrollTo(0, holdY);
   }
   const goingDown = scrollY > lastY; lastY = scrollY;
-  if (played || !goingDown) return;
+  if (played || !goingDown || narrow.matches) return;
   const r = road.getBoundingClientRect();
   if (r.top < innerHeight * .6 && r.bottom > innerHeight * .5) play();
 }, { passive: true });
 addEventListener('resize', () => { resize(); if (road.classList.contains('done')) finish(); });
 resize();
-// reduced motion: the finished yellow screen from the start, no snap, no lock
-if (reduce) { played = true; finish(); }
+// reduced motion, and tablets and phones (≤ 1100 px, touch: a snap and a scroll lock fight the finger there):
+// the finished yellow screen with both choices from the start, no snap, no lock
+if (reduce || narrow.matches) { played = true; finish(); }

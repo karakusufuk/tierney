@@ -522,17 +522,259 @@ blockquote footer b{color:var(--navy);font-weight:600}
 .contact .line span{font-size:26px;font-weight:600;font-variant-numeric:tabular-nums;user-select:all}
 .contact .btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
 
-/* ---------- narrow screens (mobile is a later step; nothing may scroll sideways) ---------- */
+/* =====================================================================
+   Tablets and phones. Desktop (wider than 1100 px) reads nothing below this line except
+   `.menu-btn{display:none}`, which hides a button that only exists for narrow screens.
+   ===================================================================== */
+.menu-btn{display:none}
+
+/* ---------- tablets and phones (≤ 1100 px, touch): 44 px targets, hover-only content shown, no scroll-driven motion ---------- */
+@media (max-width:1100px){
+  .top .logo,.nav a,.back,.more,.link,.forgot,.roles a,.alert .see{min-height:44px}
+  .top .logo,.nav a,.forgot,.alert .see{display:inline-flex;align-items:center}
+  .foot ul{gap:0}
+  .foot ul a{display:inline-flex;align-items:center;min-height:44px}
+  .need li{padding:6px 8px 6px 18px;min-height:58px}
+  .need .have{flex:none;margin-right:10px}
+  .need .miss{flex:none;display:inline-flex;align-items:center;min-height:44px;padding:0 10px;text-align:right}
+  .toggle input{width:24px;height:24px}
+  .field{gap:10px}
+  .drawer{padding-bottom:max(28px,env(safe-area-inset-bottom,0px));overscroll-behavior:contain}
+  .modal{max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);overflow:auto}
+  /* the toast spans the screen instead of half of it (it was squeezed into a narrow column) */
+  .toast{left:16px;right:16px;max-width:560px;margin-inline:auto;transform:none;display:block;bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+  .toast.gone{transform:translateY(10px)}
+  .intro-grid,.checked-grid,.closing-grid{gap:56px}
+  /* sector rows: the open-job count was a hover reveal; it now sits under the name, always shown */
+  .sector{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:24px;row-gap:4px;align-items:center}
+  .sector .icon{grid-row:1/span 2}
+  .sector h3{font-size:clamp(34px,4.4vw,48px);align-self:end}
+  .sector .count{margin-left:0;align-self:start;font-size:16px;opacity:1;transform:none}
+  /* road: no snap and no scroll lock under a finger; the finished yellow screen with both choices, in the flow */
+  .road{height:auto;background:var(--reflector)}
+  .road-pin{height:auto;overflow:visible}
+  .road canvas{display:none}
+  .road-choices{position:relative;inset:auto;padding-block:clamp(72px,11vw,112px)}
+  .road-choices .wrap{gap:44px}
+  .road:not(.done) .choice{visibility:visible}
+  .road .words .w{opacity:1;transform:none;animation:none}
+  .road .choice svg{opacity:1;transform:none}
+  .road .choice p{opacity:.85;transform:none}
+  .check table{display:block;overflow-x:auto}
+  /* employer candidates: reference and stage on top, then the candidate, then the documents (four columns were too tight) */
+  .ap{grid-template-columns:minmax(0,1fr) auto;gap:8px 12px}
+  .ap .ref{grid-column:1;grid-row:1;align-self:center}
+  .ap .stg{grid-column:2;grid-row:1;justify-self:end}
+  .ap>div:not(.apdocs){grid-column:1/-1;grid-row:2}
+  .apdocs{grid-column:1/-1;grid-row:3}
+  /* job rows: nothing is dropped; Where, Shift and Pay move to a second line under the title */
+  .rows li+li::before{left:-20px;right:-20px}
+  .rows .row{grid-template-columns:56px repeat(3,minmax(0,1fr)) 44px;gap:12px 20px;align-items:start;padding:18px 20px;margin-inline:-20px}
+  .rows .row>.icon{grid-column:1;grid-row:1/span 2;width:56px;height:56px}
+  .rows .row>.icon svg{width:28px;height:28px}
+  .rows .row>.role{grid-column:2/5;grid-row:1;align-self:center}
+  .rows .row>.go{grid-column:5;grid-row:1;width:44px;height:44px;align-self:center}
+  .rows .row>.cell:nth-child(3){grid-column:2;grid-row:2}
+  .rows .row>.cell:nth-child(4){grid-column:3;grid-row:2}
+  .rows .row>.pay{grid-column:4;grid-row:2}
+  .rows .role h3{font-size:21px;line-height:1.25}
+}
+
+/* ---------- header and menu (≤ 900 px): the nav and Sign in are hidden, a menu button opens them ---------- */
 @media (max-width:900px){
   .nav,.pill.sign{display:none}
   .hero-copy{left:20px;top:auto;bottom:10%} .roles a{font-size:16px}
   .hero h1{white-space:normal}
-  .intro-grid,.checked-grid,.closing-grid,.foot-grid{grid-template-columns:1fr;gap:40px}
-  .row{grid-template-columns:56px minmax(0,1fr) 44px;margin-inline:0}
-  .row .cell{display:none}
-  .row .icon{width:56px;height:56px}
-  .go{width:44px;height:44px}
+  .intro-grid,.checked-grid,.closing-grid{grid-template-columns:minmax(0,1fr);gap:44px}
   .idcard{justify-self:stretch}
+  .band{min-height:0;padding-block:clamp(64px,10vw,88px)}
+  .pill.bar{gap:12px;padding:0 4px 0 22px}
+  .pill.solid{padding:0 20px}
+  .menu-btn{display:grid;place-items:center;flex:none;margin-left:auto;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:var(--white);transition:background .2s}
+  .menu-btn:hover{background:rgba(255,255,255,.22)}
+  .menu-btn svg{width:22px;height:22px}
+  html.mlock,html.mlock body{overflow:hidden}
+  .drawer.mnav{width:min(420px,calc(100% - 52px));gap:0;padding:28px max(24px,env(safe-area-inset-right,0px)) max(28px,env(safe-area-inset-bottom,0px)) 24px}
+  .mnav h2{margin:6px 0 24px}
+  .mnav-links{display:grid;border-top:1px solid #DDE2EA}
+  .mnav-links a{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:76px;border-bottom:1px solid #DDE2EA;font-size:26px;font-weight:600;letter-spacing:-.015em}
+  .mnav-links .go{flex:none;width:44px;height:44px}
+  .mnav-links a[aria-current] .go,.mnav-links a:hover .go{background:var(--reflector)}
+  .mnav-acts{display:grid;gap:10px;margin-top:32px}
+  .drawer.mnav .pill{display:flex;justify-content:center;height:56px;font-size:17px}
+  .drawer.mnav .pill.sign,.drawer.mnav .pill.sign:hover{background:var(--navy);box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+  .drawer.mnav .pill.solid,.drawer.mnav .pill.solid:hover{background:var(--reflector);color:var(--navy)}
+  /* footer: brand across the top, link groups side by side */
+  .foot{margin-top:72px}
+  .home .foot{margin-top:0}
+  .foot-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:36px 24px}
+  .foot-grid>:first-child{grid-column:1/-1}
+}
+
+/* ---------- tablet portrait (600–899 px): 28 px gutters ---------- */
+@media (min-width:600px) and (max-width:899px){
+  .wrap,.top-in{padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
+  .home .top{padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
+  .sum{grid-template-columns:minmax(0,.7fr) minmax(0,1fr) minmax(0,1.25fr)}
+  .sum b{font-size:28px}
+  .steps li{grid-template-columns:52px minmax(0,1fr) 116px 128px}
+  .steps .t,.steps .c{grid-column:auto}
+}
+/* job facts: three over two instead of a lone fifth card */
+@media (min-width:600px) and (max-width:1000px){
+  .facts{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .fact{grid-column:span 2}
+  .fact:nth-child(n+4){grid-column:span 3}
+}
+/* the apply card comes straight after the facts once it is no longer a sticky side column */
+@media (max-width:1000px){ .side{order:-1} }
+
+/* ---------- home hero on phones and portrait tablets: a still, complete composition ---------- */
+/* A full-screen cover crop of the 1536 × 1024 yard cuts the cab and the forklift off on a tall screen, so the whole
+   scene is framed across the width (home.js sets --mh and the stage transform), fading into a navy band that holds
+   the headline, the other two lines and the roles. No pan, no parallax, no word timing. */
+@media (max-width:1100px) and (max-aspect-ratio:6/5){
+  .hero{height:auto;min-height:0;padding-top:var(--mh,93vw)}
+  .shade{bottom:auto;height:var(--mh,93vw);
+    background:linear-gradient(180deg,rgba(8,12,24,.42) 0%,rgba(8,12,24,0) 26%,rgba(19,35,74,0) 56%,rgba(19,35,74,.88) 90%,var(--navy) 100%)}
+  .hero-copy{position:relative;left:auto;right:auto;top:auto;bottom:auto;margin-top:calc(-1 * clamp(52px,13vw,112px));
+    padding:0 max(20px,env(safe-area-inset-right,0px)) clamp(44px,7vw,72px) max(20px,env(safe-area-inset-left,0px));
+    background:linear-gradient(180deg,transparent 0,transparent clamp(52px,13vw,112px),var(--navy) clamp(52px,13vw,112px))}
+  .hero h1{white-space:normal;font-size:clamp(36px,8vw,60px);min-height:0}
+  .hero h1 span{opacity:1;transform:none;animation:none}
+  .hero-sub{margin-top:14px;font-size:clamp(19px,2.8vw,24px);font-weight:500;color:var(--reflector);text-shadow:0 2px 16px rgba(0,0,0,.4)}
+  .roles{margin-top:22px;gap:0 28px}
+  .roles a{opacity:1;animation:none;font-size:17px}
+}
+@media (min-width:600px) and (max-width:1100px) and (max-aspect-ratio:6/5){
+  .hero-copy{padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
+  .roles a{font-size:19px}
+}
+
+/* ---------- phones (≤ 599 px) ---------- */
+@media (max-width:599px){
+  .wrap,.top-in{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+  .home .top{top:calc(env(safe-area-inset-top,0px) + 16px);padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+  .top{padding-block:14px}
+  .foot-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 20px}
+  .page-head{padding-block:28px 22px}
+  .page-head h1{font-size:clamp(34px,10vw,40px)}
+  .page-head p{font-size:17px}
+  /* job rows: title on top, then Where, Shift and Pay as labelled lines */
+  .rows li+li::before{left:-12px;right:-12px}
+  .rows .row{grid-template-columns:48px minmax(0,1fr) 44px;gap:0 14px;padding:16px 12px;margin-inline:-12px}
+  .rows .row>.icon{grid-row:1;width:48px;height:48px}
+  .rows .row>.icon svg{width:26px;height:26px}
+  .rows .row>.role{grid-column:2;align-self:start}
+  .rows .row>.go{grid-column:3;align-self:start}
+  .rows .row>.cell{grid-column:2/-1;display:flex;align-items:baseline;gap:10px;font-size:15px}
+  .rows .row>.cell:nth-child(3){grid-column:2/-1;grid-row:2;margin-top:12px}
+  .rows .row>.cell:nth-child(4){grid-column:2/-1;grid-row:3;margin-top:4px}
+  .rows .row>.pay{grid-column:2/-1;grid-row:4;margin-top:4px;font-size:19px}
+  .rows .row>.cell small{flex:none;min-width:54px;margin:0;font-size:12px}
+  .rows .row>.pay em{margin-left:-6px}
+  .rows .role h3{font-size:19px}
+  /* home */
+  .intro-grid .lead,.checked .lead{font-size:17px}
+  .sector{column-gap:18px;padding:20px;margin-inline:-20px}
+  .sector .icon{width:56px;height:56px}
+  .sector .icon svg{width:28px;height:28px}
+  .sector h3{font-size:clamp(32px,9vw,40px)}
+  .choice .ttl{font-size:clamp(30px,8.4vw,36px)}
+  .choice p{font-size:18px}
+  .jobs-head{flex-direction:column;align-items:flex-start;gap:6px}
+  .id-head{padding:14px 18px;flex-wrap:wrap;gap:2px 14px}
+  .id-body{grid-template-columns:64px minmax(0,1fr);gap:4px 16px;padding:18px}
+  .id-who{display:contents}
+  .photo{grid-row:1/span 2;align-self:start}
+  .id-who h3,.id-who p{grid-column:2}
+  .id-who p{font-size:15px}
+  .fields{grid-column:1/-1;margin-top:14px;gap:8px 16px}
+  .id-foot{padding:12px 18px 16px}
+  .contact .line span{font-size:24px}
+  .contact .btns .btn{flex:1 1 140px}
+  /* find a job */
+  .jbar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .jbar .btn{width:100%;padding:0 16px}
+  .jbar .count{grid-column:1/-1;grid-row:2;font-size:17px;margin-top:4px}
+  .jbar .right{margin-left:0}
+  .drawer h2{font-size:28px}
+  .dd-val{white-space:normal;line-height:1.2}
+  /* job */
+  .back{margin-top:16px}
+  .jh{flex-direction:column;align-items:flex-start;gap:16px;margin-top:12px}
+  .jh .icon{width:64px;height:64px}.jh .icon svg{width:32px;height:32px}
+  .jh h1{font-size:clamp(32px,9vw,40px)}
+  .facts{gap:10px;margin-top:24px}
+  .fact{padding:16px 18px}
+  .fact b{font-size:17px}
+  .fact:last-child:nth-child(odd){grid-column:1/-1}
+  .jgrid{gap:44px;margin-top:36px}
+  .jgrid h2,.sec.similar h2{font-size:26px}
+  .sec{margin-top:44px}
+  .side{padding:24px}
+  .side .p{font-size:36px}
+  /* apply */
+  .form{padding:24px 20px;gap:26px;border-radius:24px}
+  .form .btn{justify-self:stretch}
+  .q .label{font-size:17px}
+  .sent{padding:26px 20px;border-radius:24px}
+  .cvbox{padding:18px}
+  /* become a driver */
+  .pick{gap:16px}
+  .pick .card{padding:22px}
+  .sum{padding:22px;gap:14px}
+  .sum b{font-size:30px}
+  .steps li{grid-template-columns:44px repeat(2,minmax(0,1fr));gap:10px 16px;align-items:start}
+  .steps .num{grid-row:1/span 2;width:44px;height:44px;font-size:16px}
+  .steps li>div{grid-column:2/-1;grid-row:1}
+  .steps .t{grid-column:2;grid-row:2}
+  .steps .c{grid-column:3;grid-row:2}
+  .steps h3{font-size:19px}
+  .fund{padding:26px 22px;gap:28px;margin-top:56px;border-radius:24px}
+  .fund .btn{width:100%}
+  .fund ul{font-size:17px}
+  /* hire staff */
+  .cta{padding:28px 22px;gap:24px;border-radius:24px}
+  /* sign in */
+  .login{margin-top:24px;padding:28px 20px;gap:18px;border-radius:24px}
+  .input{font-size:16px;padding:0 16px}
+  .login h1{font-size:clamp(30px,8.6vw,40px);line-height:1.1}
+  /* candidate panel: the five stages run down the card, so no label is squeezed */
+  .app{padding:22px;gap:18px}
+  .app-top{align-items:flex-start;gap:14px}
+  .app-top .icon{width:52px;height:52px}.app-top .icon svg{width:26px;height:26px}
+  .app-top h3{font-size:19px}
+  .stages{grid-template-columns:minmax(0,1fr);gap:2px}
+  .stages::before{left:12.5px;right:auto;top:14px;bottom:14px;width:3px;height:auto}
+  .stages .sbar{display:none}
+  .stages li{display:flex;align-items:center;gap:14px;min-height:44px;text-align:left;font-size:15px}
+  .stages i{position:relative;z-index:1;flex:none;box-shadow:0 0 0 3px var(--white)}
+  .stages li.done::after{content:"";position:absolute;left:12.5px;top:50%;width:3px;height:calc(100% + 2px);background:var(--navy)}
+  .one{padding:24px}
+  .one h2{font-size:26px}
+  .docs{padding:22px}
+  .doc{font-size:15px}
+  /* employer panel */
+  .top2 .new{width:100%;justify-content:center}
+  .new{height:60px;font-size:18px}
+  .alert{display:grid;grid-template-columns:24px minmax(0,1fr);gap:6px 14px;align-items:start;padding:18px 20px;font-size:16px}
+  .alert .see{grid-column:2;justify-self:start;margin-left:0;color:var(--reflector)}
+  h2.sub{font-size:24px}
+  .tbl{padding:4px 18px}
+  .consult{padding:22px}
+  /* privacy */
+  .prose h2{font-size:23px;margin-top:36px}
+  .prose p,.prose ul{font-size:17px}
+}
+
+/* ---------- very small phones (< 360 px): the header row needs every pixel ---------- */
+@media (max-width:359px){
+  .wrap,.top-in{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .home .top{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .top-in{gap:8px}
+  .pill.bar{padding-left:18px;gap:8px}
+  .pill.solid{padding:0 16px}
 }
 
 /* ---------- reduced motion: keep every word and frame, drop the movement ---------- */

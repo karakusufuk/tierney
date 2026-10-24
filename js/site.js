@@ -113,6 +113,59 @@ export function modal(title, text) {
   return close;
 }
 
+// ---------- menu (≤ 900 px): the nav and Sign in are hidden there, so the header's menu button opens them in a panel ----------
+// A right-hand drawer like the For you one. Closes with ×, Esc or the backdrop; focus goes in and comes back; the page behind is inert and does not scroll.
+(function menu() {
+  const btn = document.querySelector('.top .menu-btn'); if (!btn) return;
+  const narrow = matchMedia('(max-width:900px)');
+  const CLOSE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  const links = [...document.querySelectorAll('.top .nav a')].map(a => `<a href="${a.getAttribute('href')}"${a.hasAttribute('aria-current') ? ' aria-current="page"' : ''}><span>${esc(a.textContent)}</span><span class="go">${ARROW}</span></a>`).join('');
+  const acts = ['.top .pill.sign', '.top .pill.solid'].map(s => document.querySelector(s)).filter(Boolean).map(a => a.outerHTML).join('');
+  const scrim = document.createElement('div'); scrim.className = 'drawer-scrim mscrim'; scrim.hidden = true;
+  const panel = document.createElement('aside');
+  panel.className = 'drawer right mnav'; panel.id = 'menu'; panel.hidden = true; panel.inert = true;
+  panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-modal', 'true'); panel.setAttribute('aria-labelledby', 'menuTitle');
+  panel.innerHTML = `<button type="button" class="close" aria-label="Close menu">${CLOSE}</button><h2 id="menuTitle">Menu</h2>
+    <nav class="mnav-links" aria-label="Main">${links}</nav><div class="mnav-acts">${acts}</div>`;
+  document.body.append(scrim, panel);
+  let isOpen = false, opener = null, rest = [], hideT = 0;
+  const focusables = () => [...panel.querySelectorAll('a[href],button')];
+  function open() {
+    if (isOpen) return; isOpen = true; clearTimeout(hideT);
+    opener = document.activeElement;
+    rest = [...document.body.children].filter(el => el !== panel && el !== scrim && !el.inert);
+    rest.forEach(el => { el.inert = true; });
+    scrim.hidden = panel.hidden = false; panel.inert = false;
+    document.documentElement.classList.add('mlock');
+    btn.setAttribute('aria-expanded', 'true');
+    void panel.offsetWidth; // let the slide-in run from the closed position
+    panel.classList.add('open'); scrim.classList.add('open');
+    panel.querySelector('.close').focus();
+  }
+  function close() {
+    if (!isOpen) return; isOpen = false;
+    panel.classList.remove('open'); scrim.classList.remove('open'); panel.inert = true;
+    rest.forEach(el => { el.inert = false; }); rest = [];
+    document.documentElement.classList.remove('mlock');
+    btn.setAttribute('aria-expanded', 'false');
+    hideT = setTimeout(() => { scrim.hidden = panel.hidden = true; }, reduce ? 0 : 450);
+    if (opener && opener.focus) opener.focus();
+  }
+  btn.addEventListener('click', open);
+  panel.querySelector('.close').addEventListener('click', close);
+  scrim.addEventListener('click', close);
+  document.addEventListener('keydown', e => {
+    if (!isOpen) return;
+    if (e.key === 'Escape') { e.preventDefault(); close(); }
+    else if (e.key === 'Tab') {
+      const f = focusables(), i = f.indexOf(document.activeElement);
+      if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+    }
+  });
+  narrow.addEventListener('change', () => { if (!narrow.matches) close(); });
+})();
+
 // ---------- job row (homepage rows are static HTML; Find a job, Job and others render these) ----------
 export function row(j, have) {
   const f = have && have.length ? fit(j, have) : '';
