@@ -676,7 +676,7 @@ blockquote footer b{color:var(--navy);font-weight:600}
   .rows .role h3{font-size:19px}
   /* home */
   .intro-grid .lead,.checked .lead{font-size:17px}
-  .sector{column-gap:18px;padding:20px;margin-inline:-20px}
+  .sector{column-gap:18px;padding:20px 16px;margin-inline:-16px}
   .sector .icon{width:56px;height:56px}
   .sector .icon svg{width:28px;height:28px}
   .sector h3{font-size:clamp(32px,9vw,40px)}
