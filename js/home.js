@@ -4,25 +4,39 @@ import { reduce, words } from './site.js';
 const $ = id => document.getElementById(id);
 
 /* ---------- hero ---------- */
-const hero = $('hero'), stage = $('stage'), hl = $('headline');
-// Phones and portrait tablets: a full-screen cover crop of the wide yard loses the cab and the forklift, so there the
-// whole scene is framed (yard x 395–1435, cab to forklift, around the middle lamp) above a navy band with the words, and nothing moves.
+const hero = $('hero'), stage = $('stage'), hl = $('headline'), copy = hero.querySelector('.hero-copy'), bg = hero.querySelector('.hero-bg');
+// Phones and portrait tablets: the hero is one screen tall and the photo covers it, words on top, nothing moving.
+// The wide yard can't show cab and forklift together at a useful size on a phone, so a phone frames the forklift and
+// its pallet (scene x 872–1432, the trailer behind), a portrait tablet the whole scene (cab to forklift, x 395–1435).
 const still = matchMedia('(max-width:1100px) and (max-aspect-ratio:6/5)');
 const narrow = matchMedia('(max-width:1100px)');
 // a 1536 × 1024 scene scaled to cover the screen × 1.065 and centred, so the pan never shows an edge
 function fit() {
   const w = hero.clientWidth, h = hero.clientHeight;
   if (still.matches) {
-    const k = w / 1040, mh = Math.round(Math.min(1024 * k, Math.max(innerHeight * .8, 320)));
-    const ty = Math.max(mh - 1024 * k, Math.min(0, mh * .88 - 760 * k));
-    hero.style.setProperty('--mh', mh + 'px');
-    stage.style.transform = `translate(${w / 2 - 915 * k}px,${ty}px) scale(${k})`;
+    // y0: the trailer's (or cab's) top edge, which stays below the header so the white logo never sits on white
+    const F = w < 600 ? { x0: 872, x1: 1432, y0: 250, cx: 1152 } : { x0: 395, x1: 1435, y0: 240, cx: 915 };
+    const head = document.querySelector('.top').getBoundingClientRect().bottom - hero.getBoundingClientRect().top;
+    const ct = copy.offsetTop;                                   // top of the words
+    // as wide as the frame allows, smaller only if y0 down to the wheels and shadow (y 745) would not fit between header and words
+    const k = Math.min(w / (F.x1 - F.x0), (ct - head - 36) / (745 - F.y0));
+    const tx = Math.min(0, Math.max(w - 1536 * k, w / 2 - F.cx * k));
+    const ty = Math.min(0, ct - 12 - 745 * k);                   // the subject ends just above the words; never a gap at the top
+    hero.style.setProperty('--ct', ct + 'px');
+    bg.style.backgroundPosition = `${(F.cx / 1536 * 100).toFixed(1)}% 100%`;
+    stage.classList.toggle('fade', ty + 1024 * k < h - 1);        // where the scene ends, it melts into the blurred yard
+    stage.style.transform = `translate(${tx}px,${ty}px) scale(${k})`;
     return;
   }
   const s = Math.max(w / 1536, h / 1024) * 1.065;
   stage.style.transform = `translate(${(w - 1536 * s) / 2}px,${(h - 1024 * s) / 2}px) scale(${s})`;
 }
 addEventListener('resize', fit); fit();
+// WebKit (Safari, every iPhone browser) can run this module before the stylesheet has laid the hero out, and on a
+// first visit it framed the scene from the unstyled page (too large); refit whenever the hero or its words really
+// change size, and once the font is in (the words' height sets the phone framing)
+if ('ResizeObserver' in window) { const ro = new ResizeObserver(() => fit()); ro.observe(hero); ro.observe(copy); }
+if (document.fonts) document.fonts.ready.then(fit);
 
 const LINES = ['Steady hours. Real work.', 'Home every night.', 'Start by Monday.'];
 let line = 0, timers = [];
@@ -194,18 +208,25 @@ function finish() {
   });
 }
 
-// scroll lock while the sequence plays: wheel, touch and keys are swallowed, and the page is held on the band
-let locked = false, holdY = null, arrived = false;
+// scroll lock while the sequence plays: wheel, touch and keys are swallowed, and the page is held on the band.
+// Phones and tablets run exactly the same sequence; under a finger the snap is repeated when the finger lifts, and
+// again if a fling carried the page on, so the band always comes to rest filling the screen.
+let locked = false, holdY = null, arrived = false, touching = false, snapAt = 0;
 const stop = e => { if (locked) e.preventDefault(); };
+const snap = () => { arrived = false; snapAt = performance.now(); window.scrollTo({ top: holdY, behavior: 'smooth' }); };
 addEventListener('wheel', stop, { passive: false });
 addEventListener('touchmove', stop, { passive: false });
+addEventListener('touchstart', () => { touching = true; }, { passive: true });
+const lift = () => { touching = false; if (locked && holdY != null && Math.abs(scrollY - holdY) >= 2) snap(); };
+addEventListener('touchend', lift, { passive: true });
+addEventListener('touchcancel', lift, { passive: true });
 addEventListener('keydown', e => { if (locked && ['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Space', ' ', 'Home', 'End'].includes(e.key)) e.preventDefault(); });
 
 let played = false;
 function play() {
   if (played) return; played = true;
-  holdY = Math.round(road.getBoundingClientRect().top + scrollY); arrived = false;
-  window.scrollTo({ top: holdY, behavior: 'smooth' });
+  holdY = Math.round(road.getBoundingClientRect().top + scrollY);
+  snap();
   if (reduce) return finish();
   locked = true;
   const DUR = 3400, t0 = performance.now(); let last = 0;
@@ -213,6 +234,8 @@ function play() {
     const p = clamp((now - t0) / DUR);
     const d = travelEnd * Math.pow(p, 1.6);     // starts gently, speeds up as the lines get wider
     draw(d, d - last); last = d; dNow = d;
+    // a fling that outran the smooth scroll (no finger on the glass): glide back onto the band
+    if (!touching && !arrived && now - snapAt > 700 && Math.abs(scrollY - holdY) >= 2) snap();
     if (p < 1) requestAnimationFrame(step);
     else { finish(); setTimeout(() => { locked = false; holdY = null; }, 400); }
   })(t0);
@@ -225,12 +248,17 @@ addEventListener('scroll', () => {
     else if (arrived) scrollTo(0, holdY);
   }
   const goingDown = scrollY > lastY; lastY = scrollY;
-  if (played || !goingDown || narrow.matches) return;
+  if (played) return;
   const r = road.getBoundingClientRect();
-  if (r.top < innerHeight * .6 && r.bottom > innerHeight * .5) play();
+  // already past it (the page opened further down, or a jump to #contact): show it finished rather than half-built
+  if (r.bottom <= innerHeight * .5) { played = true; finish(); return; }
+  if (goingDown && r.top < innerHeight * .6) play();
 }, { passive: true });
-addEventListener('resize', () => { resize(); if (road.classList.contains('done')) finish(); });
+const refit = () => { resize(); if (road.classList.contains('done')) finish(); };
+addEventListener('resize', refit);
+// WebKit (Safari, every iPhone browser) can run this module before the stylesheet has sized the canvas, which left
+// the road drawn at the canvas default of 300 × 150 and stretched; the canvas's own size decides instead
+if ('ResizeObserver' in window) new ResizeObserver(refit).observe(cv);
 resize();
-// reduced motion, and tablets and phones (≤ 1100 px, touch: a snap and a scroll lock fight the finger there):
-// the finished yellow screen with both choices from the start, no snap, no lock
-if (reduce || narrow.matches) { played = true; finish(); }
+// reduced motion: the finished yellow screen with both choices from the start, no snap, no lock
+if (reduce) { played = true; finish(); }

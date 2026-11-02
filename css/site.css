@@ -13,9 +13,9 @@ h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.015em;text-wrap:balance}
 .home h1,.home h2,.home h3{letter-spacing:-.01em}
 p{margin:0}
 [hidden]{display:none !important}
-:focus-visible{outline:3px solid var(--navy);outline-offset:3px;border-radius:10px}
-.home :focus-visible{border-radius:8px}
-.top :focus-visible,.foot :focus-visible,.hero :focus-visible,.side :focus-visible,.one :focus-visible,.consult :focus-visible,.cta :focus-visible,.alert :focus-visible,.sum :focus-visible,.gentle :focus-visible{outline-color:var(--reflector)}
+/* no focus rings or second strokes, and no grey tap flash on iOS: nothing looks selected unless it was chosen */
+html{-webkit-tap-highlight-color:transparent}
+:focus,:focus-visible{outline:none}
 .wrap{max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 @media (min-width:900px){.wrap{padding-left:max(56px,env(safe-area-inset-left,0px));padding-right:max(56px,env(safe-area-inset-right,0px))}}
 .muted{color:var(--navy-70)}
@@ -25,7 +25,7 @@ p{margin:0}
 .top{position:relative;z-index:30;padding-block:16px;background:var(--paper)}
 .top-in{max-width:1320px;margin:0 auto;display:flex;gap:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .pill{display:inline-flex;align-items:center;gap:10px;height:var(--ctl);padding:0 22px;border-radius:999px;font-size:15px;font-weight:500;background:var(--navy);color:var(--white);transition:background .2s,opacity .2s}
-.pill:hover{opacity:.92}
+@media (hover:hover){.pill:hover{opacity:.92}}
 .pill.bar{flex:1;gap:36px;padding:0 26px}
 .pill.solid{background:var(--reflector);color:var(--navy);font-weight:600}
 .pill svg{width:18px;height:18px}
@@ -33,30 +33,33 @@ p{margin:0}
 .logo i{font-style:normal;color:var(--reflector)}
 .nav{display:flex;gap:30px}
 .nav a{opacity:.85}
-.nav a:hover,.nav a[aria-current]{opacity:1;color:var(--reflector)}
+.nav a[aria-current]{opacity:1;color:var(--reflector)}
+@media (hover:hover){.nav a:hover{opacity:1;color:var(--reflector)}}
 .badge{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:var(--reflector);color:var(--navy);font-size:12px;font-weight:700}
 /* over the hero the 1320 px row sits inside the header's own 16 px gutters, so it is 16 px wider each side than on inner pages (as the board) */
 .home .top{position:absolute;z-index:20;top:calc(env(safe-area-inset-top,0px) + 22px);left:0;right:0;padding:0 max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));background:none;color:var(--white)}
 .home .top-in{padding:0}
 .home .pill{background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);backdrop-filter:blur(8px) saturate(140%);-webkit-backdrop-filter:blur(8px) saturate(140%);transition:background .2s}
-.home .pill:hover{background:rgba(255,255,255,.18);opacity:1}
-.home .pill.bar:hover{background:rgba(255,255,255,.1)}
+@media (hover:hover){.home .pill:hover{background:rgba(255,255,255,.18);opacity:1}}
+@media (hover:hover){.home .pill.bar:hover{background:rgba(255,255,255,.1)}}
 .home .pill.solid{background:var(--reflector);color:var(--navy);box-shadow:none}
-.home .pill.solid:hover{background:#e6ff5c}
+@media (hover:hover){.home .pill.solid:hover{background:#e6ff5c}}
 .home .top .logo{margin-right:6px}
 .home .nav a{opacity:.88;transition:opacity .2s,color .2s}
 
 /* ---------- buttons, links, chips ---------- */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;height:var(--ctl);padding:0 30px;border-radius:999px;border:0;background:var(--reflector);color:var(--navy);font-size:18px;font-weight:600;cursor:pointer;transition:transform .2s}
-.btn:hover{transform:translateY(-2px)}
+@media (hover:hover){.btn:not(:disabled):hover{transform:translateY(-2px)}}
+/* a demo's last step (Send, Request a call, funding): label kept, faded, does nothing */
+.btn:disabled{opacity:.42;cursor:default}
 .btn.dark{background:var(--navy);color:var(--white)}
 .btn.soft{background:var(--white);color:var(--navy)}
 .btn svg{width:20px;height:20px}
 .link{display:inline-flex;align-items:center;gap:8px;font-weight:600}
 .link svg{width:18px;height:18px;transition:transform .2s}
-.link:hover svg{transform:translateX(4px)}
+@media (hover:hover){.link:hover svg{transform:translateX(4px)}}
 .chip{display:inline-flex;align-items:center;gap:8px;height:var(--ctl);padding:0 16px;border-radius:999px;border:0;background:var(--white);color:var(--navy);font-size:15px;font-weight:500;cursor:pointer;transition:background .2s}
-.chip:hover{background:var(--hover)}
+@media (hover:hover){.chip:hover{background:var(--hover)}}
 .chip[aria-pressed="true"],.chip.on{background:var(--navy);color:var(--white)}
 .chip.y{background:var(--reflector);color:var(--navy)}
 .chip svg{width:14px;height:14px}
@@ -74,9 +77,9 @@ p{margin:0}
 .rows{list-style:none;margin:0;padding:0}
 .rows li{position:relative;padding-block:8px}
 .rows li+li::before{content:"";position:absolute;top:0;left:-24px;right:-24px;height:1px;background:var(--navy-12);transition:opacity .2s}
-.rows li:hover::before,.rows li:hover+li::before{opacity:0}
+@media (hover:hover){.rows li:hover::before,.rows li:hover+li::before{opacity:0}}
 .row{display:grid;grid-template-columns:64px minmax(0,2.6fr) minmax(0,1.2fr) minmax(0,1.2fr) minmax(0,.9fr) 52px;align-items:center;gap:24px;padding:16px 24px;margin-inline:-24px;border-radius:20px;transition:background .25s,box-shadow .25s}
-.row:hover{background:var(--white);box-shadow:0 18px 40px -24px rgba(19,35,74,.35)}
+@media (hover:hover){.row:hover{background:var(--white);box-shadow:0 18px 40px -24px rgba(19,35,74,.35)}}
 .role h3{font-size:21px;font-weight:600}
 .role p{font-size:15px;color:var(--navy-70);margin-top:3px}
 .role p b{font-weight:600;color:var(--navy)}
@@ -86,7 +89,7 @@ p{margin:0}
 .pay em{font-style:normal;font-size:14px;font-weight:500;color:var(--navy-70)}
 .go{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--white);transition:background .2s}
 .go svg{width:22px;height:22px}
-.row:hover .go{background:var(--reflector)}
+@media (hover:hover){.row:hover .go{background:var(--reflector)}}
 .fit{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;font-size:13px;font-weight:600;margin-left:10px;vertical-align:3px}
 .fit.ok{background:var(--reflector);color:var(--navy)}
 .fit.near{background:var(--navy);color:var(--white)}
@@ -118,7 +121,7 @@ p{margin:0}
 .foot-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:48px}
 .foot h4{margin:0 0 14px;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--white);font-weight:600}
 .foot ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.foot a:hover{color:var(--reflector)}
+@media (hover:hover){.foot a:hover{color:var(--reflector)}}
 .foot .logo{font-size:32px;color:var(--white)}
 .home .foot .logo{font-size:34px}
 .foot .blurb{margin-top:16px;max-width:30ch}
@@ -134,8 +137,9 @@ p{margin:0}
 .dd-val.ph{color:var(--navy-70)}
 .dd-list{position:absolute;z-index:20;top:calc(100% + 8px);left:0;right:0;margin:0;padding:8px;list-style:none;background:var(--white);border-radius:18px;box-shadow:0 24px 48px -20px rgba(19,35,74,.35),0 0 0 1px var(--navy-06);max-height:320px;overflow:auto}
 .dd-list li{padding:12px 14px;border-radius:12px;cursor:pointer;font-size:16px}
-.dd-list li:hover,.dd-list li.act{background:var(--paper)}
-.dd-list li[aria-selected="true"]{background:var(--navy);color:var(--white)}
+.dd-list li.act{background:var(--paper)}
+@media (hover:hover){.dd-list li:hover{background:var(--paper)}}
+.dd-list li.sel{background:var(--navy);color:var(--white)}
 
 /* ---------- drawers: Filters from the left, For you from the right, mirror images ---------- */
 .drawer-scrim{position:fixed;inset:0;z-index:40;background:rgba(19,35,74,.35);opacity:0;pointer-events:none;transition:opacity .3s}
@@ -166,8 +170,9 @@ p{margin:0}
 /* ---------- forms ---------- */
 .field{display:grid;gap:8px}
 .field label,.label{font-size:15px;font-weight:600}
-.input{height:var(--ctl);border-radius:16px;border:0;background:var(--paper);padding:0 18px;font-size:17px;width:100%}
-.input:focus{outline:3px solid var(--navy);outline-offset:0}
+/* the 1 px edge is taken out of the padding, so text sits exactly where it did */
+.input{height:var(--ctl);border-radius:16px;border:1px solid transparent;background:var(--paper);padding:0 17px;font-size:17px;width:100%;transition:border-color .2s}
+.input:focus{border-color:rgba(19,35,74,.22)}
 .seg{display:flex;flex-wrap:wrap;gap:8px}
 .seg .chip{padding:0 20px;font-size:16px;background:var(--paper)}
 .seg .chip[aria-pressed="true"]{background:var(--navy);color:var(--white)}
@@ -181,7 +186,7 @@ p{margin:0}
 .fbtn .badge{margin-left:2px}
 .active{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;min-height:4px}
 .active .chip{background:var(--navy);color:var(--white)}
-.active .chip:hover{background:var(--navy);opacity:.92}
+@media (hover:hover){.active .chip:hover{background:var(--navy);opacity:.92}}
 .group-title{font-size:15px;font-weight:600;margin:22px 0 4px;display:flex;align-items:center;gap:10px}
 .note{background:var(--white);border-radius:16px;padding:14px 18px;margin-bottom:10px;font-size:16px}
 .addrow{display:grid;grid-template-columns:minmax(0,1fr) var(--ctl);gap:8px}
@@ -210,11 +215,18 @@ p{margin:0}
 .fact b{display:block;font-size:19px;font-weight:600;margin-top:4px;line-height:1.3}
 .jgrid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:48px;margin-top:48px;align-items:start}
 .jgrid h2{font-size:32px;margin-bottom:18px}
-.day{list-style:none;margin:0;padding:0;position:relative}
-.day::before{content:"";position:absolute;left:83px;top:10px;bottom:10px;width:2px;background:var(--navy-12)}
-.day li{display:grid;grid-template-columns:70px 28px minmax(0,1fr);gap:0 14px;align-items:start;padding:12px 0}
+/* a day in this job: every row draws its own piece of the line in the dot's column, through the dot's centre, so the
+   line starts at the first dot and stops at the last one (the day ends there) whatever the row heights */
+.day{list-style:none;margin:0;padding:0;--dot:26px}
+.day li{display:grid;grid-template-columns:70px 28px minmax(0,1fr);gap:0 14px;align-items:start}
+.day time,.day li>div{padding-block:12px}
 .day time{font-size:18px;font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
-.day i{width:16px;height:16px;border-radius:50%;background:var(--reflector);margin:5px 0 0 6px;position:relative;z-index:1;box-shadow:0 0 0 5px var(--paper)}
+.day i{position:relative;align-self:stretch}
+.day i::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;margin-left:-1px;background:var(--navy-12)}
+.day li:first-child i::before{top:var(--dot)}
+.day li:last-child i::before{bottom:auto;height:var(--dot)}
+.day li:only-child i::before{display:none}
+.day i::after{content:"";position:absolute;left:50%;top:var(--dot);width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:var(--reflector)}
 .day b{font-weight:600;font-size:18px}
 .day span{display:block;color:var(--navy-70);font-size:16px}
 .need{list-style:none;margin:0;padding:0;display:grid;gap:8px}
@@ -250,7 +262,6 @@ p{margin:0}
 .cvbox{background:var(--paper);border-radius:20px;padding:22px;display:grid;gap:10px}
 .file{position:relative;display:inline-flex;align-items:center;gap:10px;height:var(--ctl);padding:0 22px;border-radius:999px;background:var(--navy);color:var(--white);font-weight:600;cursor:pointer;justify-self:start}
 .file input{position:absolute;opacity:0;width:1px;height:1px}
-.file:focus-within{outline:3px solid var(--navy);outline-offset:3px}
 .gentle{background:var(--navy);color:var(--white);border-radius:20px;padding:22px 24px}
 .gentle b{color:var(--reflector)}
 @media (max-width:700px){.two{grid-template-columns:1fr}.form{padding:24px}}
@@ -335,7 +346,7 @@ p{margin:0}
 .cta form{display:grid;gap:12px}
 .cta .input{background:rgba(255,255,255,.1);color:var(--white)}
 .cta .input::placeholder{color:rgba(255,255,255,.6)}
-.cta .input:focus{outline-color:var(--reflector)}
+.cta .input:focus{border-color:rgba(255,255,255,.3)}
 .privacy{font-size:15px;color:var(--navy-70);margin-top:14px}
 @media (max-width:1000px){.pool{grid-template-columns:1fr 1fr}.cta{grid-template-columns:1fr}}
 @media (max-width:640px){.pool{grid-template-columns:1fr}}
@@ -399,6 +410,7 @@ h2.sub{font-size:28px;margin:8px 0 14px}
 /* ---------- hero scene ---------- */
 .hero{position:relative;height:100vh;min-height:620px;overflow:hidden;background:var(--navy);color:var(--white)}
 .stage{position:absolute;left:0;top:0;width:1536px;height:1024px;transform-origin:0 0}
+.hero-bg{display:none}
 .pan,.slide{position:absolute;inset:0;will-change:transform}
 .slide img{position:absolute;inset:0;width:100%;height:100%;display:block;max-width:none;user-select:none;pointer-events:none;filter:brightness(1.28) contrast(.96) saturate(1.05)}   /* lifts the whole yard a little; the lamp glows are separate and stay as they are */
 .glow{position:absolute;width:300px;height:230px;transform:translate(-50%,-14%);pointer-events:none;transition:opacity 70ms linear;
@@ -435,7 +447,7 @@ h2.sub{font-size:28px;margin:8px 0 14px}
 @keyframes hword{to{opacity:1;transform:none}}
 .roles{display:flex;flex-wrap:wrap;gap:12px 34px;list-style:none;margin:22px 0 0;padding:0}
 .roles a{display:inline-flex;align-items:center;gap:11px;font-size:19px;font-weight:500;text-shadow:0 2px 16px rgba(0,0,0,.55);opacity:0;transition:color .25s}
-.roles a:hover{color:var(--reflector)}
+@media (hover:hover){.roles a:hover{color:var(--reflector)}}
 .roles i{width:9px;height:9px;border-radius:50%;background:var(--reflector);box-shadow:0 0 12px rgba(220,255,28,.55)}
 .hero.play .roles a{animation:fade 1.1s ease forwards}
 .hero.play .roles li:nth-child(1) a{animation-delay:.6s}
@@ -451,16 +463,17 @@ h2.sub{font-size:28px;margin:8px 0 14px}
 .sectors{list-style:none;margin:0;padding:0;border-top:1px solid #DDE2EA}
 .sectors li{border-bottom:1px solid #DDE2EA}
 .sector{display:flex;align-items:center;gap:28px;padding:26px 20px;margin-inline:-20px;border-radius:20px;transition:background .3s ease}
-.sector:hover{background:var(--hover)}
+@media (hover:hover){.sector:hover{background:var(--hover)}}
 .sector .icon{width:72px;height:72px}
 .sector .icon svg{width:36px;height:36px}
 .sector h3{font-size:clamp(40px,4.4vw,64px);font-weight:600;letter-spacing:-.02em;line-height:1}
 .sector .count{margin-left:auto;display:inline-flex;align-items:center;gap:10px;font-size:17px;font-weight:600;opacity:0;transform:translateX(-8px);transition:opacity .3s ease,transform .3s ease;font-variant-numeric:tabular-nums}
 .sector .count svg{width:20px;height:20px}
-.sector:hover .count,.sector:focus-visible .count{opacity:1;transform:none}
+.sector:focus-visible .count{opacity:1;transform:none}
+@media (hover:hover){.sector:hover .count{opacity:1;transform:none}}
 .more{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:17px;margin-top:6px}
 .more svg{width:18px;height:18px;transition:transform .2s}
-.more:hover svg{transform:translateX(4px)}
+@media (hover:hover){.more:hover svg{transform:translateX(4px)}}
 
 /* ---------- road: snaps into view and plays by itself; the centre line widens until it is the yellow background ---------- */
 .road{position:relative;height:100vh;background:var(--navy)}
@@ -471,7 +484,8 @@ h2.sub{font-size:28px;margin:8px 0 14px}
 .choice{align-self:flex-start;display:flex;flex-direction:column;gap:12px;color:var(--navy);pointer-events:auto}
 .choice .ttl{position:relative;display:inline-flex;align-items:center;gap:18px;font-size:clamp(36px,3.6vw,54px);font-weight:700;letter-spacing:-.02em;line-height:1.1}
 .choice .ttl::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:4px;border-radius:2px;background:var(--navy);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
-.choice:hover .ttl::after,.choice:focus-visible .ttl::after{transform:scaleX(1)}
+.choice:focus-visible .ttl::after{transform:scaleX(1)}
+@media (hover:hover){.choice:hover .ttl::after{transform:scaleX(1)}}
 .choice svg{width:.8em;height:.8em;flex:none;opacity:0;transform:translateX(-10px);transition:opacity .5s ease,transform .5s ease}
 .choice p{font-size:20px;opacity:0;transform:translateY(8px);transition:opacity .6s ease,transform .6s ease}
 .choice.in svg{opacity:1;transform:none}
@@ -528,7 +542,7 @@ blockquote footer b{color:var(--navy);font-weight:600}
    ===================================================================== */
 .menu-btn{display:none}
 
-/* ---------- tablets and phones (≤ 1100 px, touch): 44 px targets, hover-only content shown, no scroll-driven motion ---------- */
+/* ---------- tablets and phones (≤ 1100 px, touch): 44 px targets, hover-only content shown ---------- */
 @media (max-width:1100px){
   .top .logo,.nav a,.back,.more,.link,.forgot,.roles a,.alert .see{min-height:44px}
   .top .logo,.nav a,.forgot,.alert .see{display:inline-flex;align-items:center}
@@ -550,16 +564,8 @@ blockquote footer b{color:var(--navy);font-weight:600}
   .sector .icon{grid-row:1/span 2}
   .sector h3{font-size:clamp(34px,4.4vw,48px);align-self:end}
   .sector .count{margin-left:0;align-self:start;font-size:16px;opacity:1;transform:none}
-  /* road: no snap and no scroll lock under a finger; the finished yellow screen with both choices, in the flow */
-  .road{height:auto;background:var(--reflector)}
-  .road-pin{height:auto;overflow:visible}
-  .road canvas{display:none}
-  .road-choices{position:relative;inset:auto;padding-block:clamp(72px,11vw,112px)}
+  /* road: the same sequence as on a desk (snap, the lines run and widen into yellow, then the two choices), one screen tall */
   .road-choices .wrap{gap:44px}
-  .road:not(.done) .choice{visibility:visible}
-  .road .words .w{opacity:1;transform:none;animation:none}
-  .road .choice svg{opacity:1;transform:none}
-  .road .choice p{opacity:.85;transform:none}
   .check table{display:block;overflow-x:auto}
   /* employer candidates: reference and stage on top, then the candidate, then the documents (four columns were too tight) */
   .ap{grid-template-columns:minmax(0,1fr) auto;gap:8px 12px}
@@ -591,7 +597,7 @@ blockquote footer b{color:var(--navy);font-weight:600}
   .pill.bar{gap:12px;padding:0 4px 0 22px}
   .pill.solid{padding:0 20px}
   .menu-btn{display:grid;place-items:center;flex:none;margin-left:auto;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:var(--white);transition:background .2s}
-  .menu-btn:hover{background:rgba(255,255,255,.22)}
+  @media (hover:hover){.menu-btn:hover{background:rgba(255,255,255,.22)}}
   .menu-btn svg{width:22px;height:22px}
   html.mlock,html.mlock body{overflow:hidden}
   .drawer.mnav{width:min(420px,calc(100% - 52px));gap:0;padding:28px max(24px,env(safe-area-inset-right,0px)) max(28px,env(safe-area-inset-bottom,0px)) 24px}
@@ -599,11 +605,14 @@ blockquote footer b{color:var(--navy);font-weight:600}
   .mnav-links{display:grid;border-top:1px solid #DDE2EA}
   .mnav-links a{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:76px;border-bottom:1px solid #DDE2EA;font-size:26px;font-weight:600;letter-spacing:-.015em}
   .mnav-links .go{flex:none;width:44px;height:44px}
-  .mnav-links a[aria-current] .go,.mnav-links a:hover .go{background:var(--reflector)}
+  .mnav-links a[aria-current] .go{background:var(--reflector)}
+  @media (hover:hover){.mnav-links a:hover .go{background:var(--reflector)}}
   .mnav-acts{display:grid;gap:10px;margin-top:32px}
   .drawer.mnav .pill{display:flex;justify-content:center;height:56px;font-size:17px}
-  .drawer.mnav .pill.sign,.drawer.mnav .pill.sign:hover{background:var(--navy);box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
-  .drawer.mnav .pill.solid,.drawer.mnav .pill.solid:hover{background:var(--reflector);color:var(--navy)}
+  .drawer.mnav .pill.sign{background:var(--navy);box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+  @media (hover:hover){.drawer.mnav .pill.sign:hover{background:var(--navy);box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}}
+  .drawer.mnav .pill.solid{background:var(--reflector);color:var(--navy)}
+  @media (hover:hover){.drawer.mnav .pill.solid:hover{background:var(--reflector);color:var(--navy)}}
   /* footer: brand across the top, link groups side by side */
   .foot{margin-top:72px}
   .home .foot{margin-top:0}
@@ -629,17 +638,18 @@ blockquote footer b{color:var(--navy);font-weight:600}
 /* the apply card comes straight after the facts once it is no longer a sticky side column */
 @media (max-width:1000px){ .side{order:-1} }
 
-/* ---------- home hero on phones and portrait tablets: a still, complete composition ---------- */
-/* A full-screen cover crop of the 1536 × 1024 yard cuts the cab and the forklift off on a tall screen, so the whole
-   scene is framed across the width (home.js sets --mh and the stage transform), fading into a navy band that holds
-   the headline, the other two lines and the roles. No pan, no parallax, no word timing. */
+/* ---------- home hero on phones and portrait tablets: a still photo that fills the first screen ---------- */
+/* The hero is exactly one screen tall (the small viewport, so nothing hides under Safari's bars) and the photo covers
+   all of it, with the words on it. The 1536 × 1024 yard is too wide for a tall screen, so home.js frames the part
+   that must stay whole (the forklift and its pallet on a phone, cab to forklift on a tablet) between the header and
+   the words, and the yard behind, softly blurred, carries the asphalt on down under the words wherever the sharp
+   scene ends (the scene fades into it). No pan, no parallax, no word timing. */
 @media (max-width:1100px) and (max-aspect-ratio:6/5){
-  .hero{height:auto;min-height:0;padding-top:var(--mh,93vw)}
-  .shade{bottom:auto;height:var(--mh,93vw);
-    background:linear-gradient(180deg,rgba(8,12,24,.42) 0%,rgba(8,12,24,0) 26%,rgba(19,35,74,0) 56%,rgba(19,35,74,.88) 90%,var(--navy) 100%)}
-  .hero-copy{position:relative;left:auto;right:auto;top:auto;bottom:auto;margin-top:calc(-1 * clamp(52px,13vw,112px));
-    padding:0 max(20px,env(safe-area-inset-right,0px)) clamp(44px,7vw,72px) max(20px,env(safe-area-inset-left,0px));
-    background:linear-gradient(180deg,transparent 0,transparent clamp(52px,13vw,112px),var(--navy) clamp(52px,13vw,112px))}
+  .hero{height:100vh;height:100svh;min-height:520px}
+  .hero-bg{display:block;position:absolute;inset:-48px;background:url(/images/yard.webp) 75% 100%/cover no-repeat;filter:blur(20px) brightness(1.28) contrast(.96) saturate(1.05)}
+  .stage.fade{-webkit-mask-image:linear-gradient(180deg,#000 82%,transparent 100%);mask-image:linear-gradient(180deg,#000 82%,transparent 100%)}
+  .shade{background:linear-gradient(180deg,rgba(8,12,24,.36) 0,rgba(8,12,24,0) 150px,rgba(19,35,74,0) calc(var(--ct,60%) - 170px),rgba(19,35,74,.6) var(--ct,60%),rgba(19,35,74,.84) 100%)}
+  .hero-copy{left:max(20px,env(safe-area-inset-left,0px));right:max(20px,env(safe-area-inset-right,0px));top:auto;bottom:max(40px,calc(env(safe-area-inset-bottom,0px) + 24px))}
   .hero h1{white-space:normal;font-size:clamp(36px,8vw,60px);min-height:0}
   .hero h1 span{opacity:1;transform:none;animation:none}
   .hero-sub{margin-top:14px;font-size:clamp(19px,2.8vw,24px);font-weight:500;color:var(--reflector);text-shadow:0 2px 16px rgba(0,0,0,.4)}
@@ -647,7 +657,7 @@ blockquote footer b{color:var(--navy);font-weight:600}
   .roles a{opacity:1;animation:none;font-size:17px}
 }
 @media (min-width:600px) and (max-width:1100px) and (max-aspect-ratio:6/5){
-  .hero-copy{padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
+  .hero-copy{left:max(28px,env(safe-area-inset-left,0px));right:max(28px,env(safe-area-inset-right,0px))}
   .roles a{font-size:19px}
 }
 
@@ -738,7 +748,7 @@ blockquote footer b{color:var(--navy);font-weight:600}
   .cta{padding:28px 22px;gap:24px;border-radius:24px}
   /* sign in */
   .login{margin-top:24px;padding:28px 20px;gap:18px;border-radius:24px}
-  .input{font-size:16px;padding:0 16px}
+  .input{font-size:16px;padding:0 15px}
   .login h1{font-size:clamp(30px,8.6vw,40px);line-height:1.1}
   /* candidate panel: the five stages run down the card, so no label is squeezed */
   .app{padding:22px;gap:18px}

@@ -8,9 +8,11 @@ const st = { sector: SECTORS.some(s => s[0] === sec) ? sec : 'all', shift: 'any'
   held: store.get('have', []), done: store.get('done', null), next: store.get('next', null) };
 
 // ---------- filters drawer ----------
-const ddSector = dropdown($('ddSector'), { options: SECTORS, value: st.sector, labelledBy: 'lblSector', onChange: v => { st.sector = v; render(); } });
-const ddShift = dropdown($('ddShift'), { options: SHIFTS, value: st.shift, labelledBy: 'lblShift', onChange: v => { st.shift = v; render(); } });
-const ddCounty = dropdown($('ddCounty'), { options: COUNTIES, value: st.county, labelledBy: 'lblCounty', onChange: v => { st.county = v; render(); } });
+const ddSector = dropdown($('ddSector'), { options: SECTORS, value: st.sector, def: 'all', labelledBy: 'lblSector', onChange: v => { st.sector = v; render(); } });
+const ddShift = dropdown($('ddShift'), { options: SHIFTS, value: st.shift, def: 'any', labelledBy: 'lblShift', onChange: v => { st.shift = v; render(); } });
+const ddCounty = dropdown($('ddCounty'), { options: COUNTIES, value: st.county, def: 'any', labelledBy: 'lblCounty', onChange: v => { st.county = v; render(); } });
+// a browser that restores form fields (Back, a reopened tab) must not bring an old tick back
+$('fHome').checked = st.home; $('other').value = '';
 $('fHome').onchange = e => { st.home = e.target.checked; render(); };
 
 // ---------- For you drawer ----------
@@ -32,8 +34,8 @@ $('other').oninput = e => {
 $('suggest').onclick = e => { const b = e.target.closest('button'); if (b) location.href = '/job/?id=' + b.dataset.id; };
 
 const dr = drawers({ scrim: $('scrim'), panels: { f: $('filters'), y: $('foryou') }, onOpen: which => { if (which === 'y') paintHeld(); } });
-$('openFilters').onclick = () => dr.open('f');
-$('openForYou').onclick = () => dr.open('y');
+$('openFilters').onclick = e => dr.open('f', e.detail === 0);
+$('openForYou').onclick = e => dr.open('y', e.detail === 0);
 $('showMine').onclick = () => {
   const n = NEXT.find(x => x[0] === st.next);
   if (n && n[2]) { st.sector = n[2]; ddSector.value = n[2]; }

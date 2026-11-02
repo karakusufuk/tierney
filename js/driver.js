@@ -1,5 +1,6 @@
-// Become a driver: tick what you have, see the steps left, time and cost; funding chat opens the concept modal.
-import { modal, esc } from './site.js';
+// Become a driver: tick what you have, see the steps left, time and cost. Nothing is chosen on arrival (the sums
+// start from Category C); the funding button stays faded and inactive.
+import { esc } from './site.js';
 
 const $ = id => document.getElementById(id);
 // weeks and euro ranges are rough guides for a learner in Ireland
@@ -36,5 +37,4 @@ function render() {
     return `<li class="${done ? 'done' : next ? 'next' : ''}"${next ? ' aria-current="step"' : ''}><span class="num" aria-hidden="true"></span><div><h3>${esc(s.t)}</h3><p>${esc(s.d)}</p></div><span class="t"><small>Time</small>${time}</span><span class="c"><small>Cost</small>${cost}</span></li>`;
   }).join('');
 }
-$('fund').onclick = () => modal('Funding chat', 'In the live site this books a call with a Tierney consultant, who checks you meet the age and licence rules and explains the repayment terms in writing. This is a concept site, so nothing is sent.');
 render();

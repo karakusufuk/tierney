@@ -115,5 +115,5 @@ export const EMPLOYER = {
     ['TR-2611', 'Transport planner, 6 years', 'Transport planner', ['Degree', 'Excel'], 'Received']
   ],
   openJobs: [['j1', '2 candidates'], ['j8', '1 candidate'], ['j21', '1 candidate']],
-  consultant: { initials: 'ÉT', name: 'Éabha Tansey', since: 'Your consultant since 2019', phone: '01 000 6630', email: 'eabha@tierney.example' }
+  consultant: { initials: 'FT', name: 'Fionnuala Tansey', since: 'Your consultant since 2019', phone: '01 000 6630', email: 'fionnuala@tierney.example' }
 };

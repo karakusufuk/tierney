@@ -1,6 +1,6 @@
-// Apply in 20 seconds, and the standalone "Send us your CV" page (/apply/?cv). Nothing is ever sent.
+// Apply in 20 seconds, and the standalone "Send us your CV" page (/apply/?cv), whose Send stays faded and inactive. Nothing is ever sent.
 import { JOBS, byId } from './data.js';
-import { qs, words, modal, ARROW, esc } from './site.js';
+import { qs, words, ARROW, esc } from './site.js';
 
 const app = document.getElementById('app');
 const cvOnly = new URLSearchParams(location.search).has('cv');
@@ -17,9 +17,8 @@ function bindCv() {
 
 if (cvOnly) {
   app.innerHTML = `<div class="page-head"><h1 class="words">Send us your CV</h1><p>No CV is needed to apply for a job. If you'd like us to keep yours on file for roles that aren't advertised yet, add it here.</p></div>
-    <div class="sent">${cvBox('Your CV')}<div class="two"><div class="field"><label for="n">Name</label><input class="input" id="n" autocomplete="name"></div><div class="field"><label for="p">Phone</label><input class="input" id="p" type="tel" autocomplete="tel"></div></div><button type="button" class="btn" id="sendCv" style="justify-self:start">Send</button></div>`;
+    <div class="sent">${cvBox('Your CV')}<div class="two"><div class="field"><label for="n">Name</label><input class="input" id="n" autocomplete="name"></div><div class="field"><label for="p">Phone</label><input class="input" id="p" type="tel" autocomplete="tel"></div></div><button type="button" class="btn" id="sendCv" style="justify-self:start" disabled>Send</button></div>`;
   words(app); bindCv();
-  document.getElementById('sendCv').onclick = () => modal('CV received', 'In the live site your CV goes to a consultant, who calls you within one working day. This is a concept site, so nothing was sent.');
 } else {
   app.innerHTML = `<div class="page-head"><h1 class="words">Apply in 20 seconds</h1><p>${esc(j.title)} · ${esc(j.where)}. No CV, no account. A consultant calls you back.</p></div>
     <form class="form" id="f" novalidate>
