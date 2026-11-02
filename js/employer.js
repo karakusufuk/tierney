@@ -1,6 +1,6 @@
 // Employer panel: demo sign-in, then the company heading, the big "+ New job ad", the CPC alert, candidates, open jobs and the consultant card.
 import { EMPLOYER, byId } from './data.js';
-import { words, modal, esc } from './site.js';
+import { words, esc } from './site.js';
 
 const main = document.getElementById('main');
 function login() {
@@ -37,7 +37,5 @@ function panel() {
     </div>`;
   words(main);
   main.querySelector('h1').setAttribute('tabindex', '-1'); main.querySelector('h1').focus({ preventScroll: true });
-  document.getElementById('newJob').onclick = () => modal('New job ad', 'In the live site a short form asks for the role, shift, pay and start date. Your consultant checks it and it goes live the same day. This is a concept site, so nothing is posted.');
-  document.getElementById('see').onclick = () => modal('CPC expiries', 'TR-2207 expires 5 Dec 2026 and TR-2311 expires 19 Dec 2026. Both have training booked for November. Names are shown in the live panel.');
 }
 login();

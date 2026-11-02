@@ -1,6 +1,6 @@
 // Candidate panel: demo sign-in with a toast, then two applications, documents and "The one thing to do".
 import { CANDIDATE, byId } from './data.js';
-import { words, modal, toast, ICONS, ARROW, esc } from './site.js';
+import { words, toast, ICONS, ARROW, esc } from './site.js';
 
 const main = document.getElementById('main');
 function login() {
@@ -12,7 +12,6 @@ function login() {
     <button class="forgot" type="button" id="fg">Forgot password?</button>
   </form>`;
   words(main);
-  document.getElementById('fg').onclick = () => modal('Reset by text message', 'In the live site we text a one-time code to your phone, so you never need to remember a password. This is a concept site, so no message is sent.');
   const tt = setTimeout(() => toast(`Demo account: your temporary password <b>${CANDIDATE.password}</b> is already filled in.`, 6000), 600);
   document.getElementById('lf').onsubmit = e => { e.preventDefault(); clearTimeout(tt); document.querySelectorAll('.toast').forEach(t => t.remove()); dash(); };
 }
@@ -31,13 +30,11 @@ function dash() {
       <aside class="one reveal" aria-labelledby="oneH">
         <h2 id="oneH">The one thing to do</h2>
         <p>Book your interview with O'Rourke Logistics. Thursday 10:00 or Friday 14:30 at Ballycoolin.</p>
-        <button type="button" class="btn" id="book">Book Thursday 10:00</button>
+        <button type="button" class="btn" id="book" disabled>Book Thursday 10:00</button>
         <button type="button" class="link" id="other" style="background:none;border:0;padding:0;cursor:pointer">Other times ${ARROW}</button>
       </aside>
     </div>`;
   words(main);
   main.querySelector('h1').setAttribute('tabindex', '-1'); main.querySelector('h1').focus({ preventScroll: true });
-  document.getElementById('book').onclick = () => modal('Interview booked', 'In the live site this confirms the slot with the employer and texts you the address and what to bring. This is a concept site, so nothing was booked.');
-  document.getElementById('other').onclick = () => modal('Other times', 'Your consultant offers three more slots this week. This is a concept site, so the calendar is not connected.');
 }
 login();
